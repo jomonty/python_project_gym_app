@@ -1,7 +1,7 @@
 from models.member import Member
-from models.class_schedule import ClassSchedule
+from models.gym_class import GymClass
 
 class Booking:
-    def __init__(self, member: Member, class_schedule: ClassSchedule):
+    def __init__(self, member: Member, gym_class: GymClass):
         self.member = member
-        self.class_schedule = class_schedule
+        self.gym_class = gym_class
