@@ -45,7 +45,8 @@ CREATE TABLE members (
 
 CREATE TABLE plans (
     id SERIAL PRIMARY KEY,
-    type VARCHAR(255)
+    type VARCHAR(255),
+    is_premium BOOLEAN
 );
 
 CREATE TABLE subscriptions (
