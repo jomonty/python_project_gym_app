@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block header_title_content %}
+    Edit Member
+{% endblock %}
+
+{% block body_main_content %}
+    <header class="members-header">
+        <h2>Edit Member</h2>
+    </header>
+    <main class="members-main">
+        <form action="/members/{{ member.id }}/edit" method="post">
+            <div class="label-input-pair">
+                <label for ="first_name">First Name: </label>
+                <input type="text" 
+                        id="first_name" 
+                        name="first_name" 
+                        value="{{ member.first_name }}">
+            </div>
+            <div class="label-input-pair">
+                <label for="last_name">Last Name: </label>
+                <input type="text" 
+                        id="last_name" 
+                        name="last_name"
+                        value="{{ member.last_name }}">
+            </div>
+            <div class="label-input-pair">
+                <label for="premium">Premium? </label>
+                <input type="checkbox" 
+                        id="premium" 
+                        name="premium"
+                        {% if member.is_premium %}checked{% endif %}>
+            </div>
+            <div class="label-input-pair">
+                <label for="active">Active? </label>
+                <input type="checkbox" 
+                        id="active" 
+                        name="active" 
+                        {% if member.is_active %}checked{% endif %}>
+            </div>
+            <button type="submit">Save</button>
+        </form>
+    </main>
+{% endblock %}

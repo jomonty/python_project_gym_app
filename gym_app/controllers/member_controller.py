@@ -28,8 +28,8 @@ def create_member_save():
     form_data = request.form
     first_name = form_data['first_name']
     last_name = form_data['last_name']
-    is_premium = form_data['is_premium']
-    is_active = form_data['is_active']
+    is_premium = 'premium' in form_data
+    is_active = 'active' in form_data
     member = Member(first_name, last_name, is_premium, is_active)
     member = member_repo.save(member)
     return redirect(f'/members/{member.id}')
@@ -46,14 +46,14 @@ def one_member_edit_save(id):
     form_data = request.form
     first_name = form_data['first_name']
     last_name = form_data['last_name']
-    is_premium = form_data['is_premium']
-    is_active = form_data['is_active']
+    is_premium = 'premium' in form_data
+    is_active = 'active' in form_data
     member = Member(first_name, last_name, is_premium, is_active, id)
     member_repo.update(member)
     return redirect(f'/members/{id}')
 
 # DELETE - POST - Process request
-@members_blueprint.route('/members/<int:id>/delete', methods=['POST'])
+@members_blueprint.route('/members/<int:id>/delete', methods=['GET'])
 def one_member_delete(id):
     member_repo.delete(id)
     return redirect('/members')

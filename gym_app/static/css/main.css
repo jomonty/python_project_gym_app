@@ -4,7 +4,7 @@
         'base-header'
         'base-main'
         'base-footer';
-    grid-template-rows: 100px 100% 100px;
+    grid-template-rows: 100px 1fr 100px;
     background-color: lightblue;
     margin: 0;
 }
@@ -22,6 +22,7 @@
 .base-style-main {
     grid-area: base-main;
     background-color: aliceblue;
+    padding: 1em 0 2em 0;
 }
 .base-style-footer {
     grid-area: base-footer;

@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block header_title_content %}
+    Single Member
+{% endblock %}
+
+{% block body_main_content %}
+    <header class="members-header">
+        <h2>Member Detail</h2>
+        <a href="/members">Show All</a>
+    </header>
+    <main class="members-main">
+        <section class="card-member">
+            <p>Name: {{ member.get_full_name() }}</p>
+            <p>Premium? {{ member.is_premium }}</p>
+            <p>Active? {{ member.is_active }}</p>
+            <button>
+                <a href="/members/{{ member.id }}/edit">Edit</a>
+            </button>
+            <button>
+                <a href="/members/{{ member.id }}/delete">Delete</a>
+            </button>
+        </section>
+    </main>
+{% endblock %}

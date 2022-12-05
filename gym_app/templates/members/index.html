@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block header_title_content %}
+    All Members
+{% endblock %}
+
+{% block body_main_content %}
+    <header class="members-header">
+        <h2>All Members</h2>
+        <a href="/members/new">Create New Member</a>
+    </header>
+    <main class="members-main">
+        {% for member in members %}
+            <section class="card-member">
+                <div>
+                    <p>Name: <a href="/members/{{ member.id }}">{{ member.get_full_name() }}</a></p>
+                    <p>Premium? {{ member.is_premium }}</p>
+                    <p>Active? {{ member.is_active }}</p>
+                </div>
+                <div class="member-show-buttons">
+                    <button>
+                        <a href="/members/{{ member.id }}/edit">Edit</a>
+                    </button>
+                    <button>
+                        <a href="/members/{{ member.id }}/delete">Delete</a>
+                    </button>
+                </div>
+            </section>
+        {% endfor %}
+    </main>
+{% endblock %}
