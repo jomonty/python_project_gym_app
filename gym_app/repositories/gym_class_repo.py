@@ -42,6 +42,27 @@ def select_all() -> list[GymClass]:
             gym_class = GymClass(name, class_date, class_time, capacity, is_active, id)
             gym_classes.append(gym_class)
 
+# SELECT ALL UPCOMING
+def select_all_upcoming() -> list[GymClass]:
+    sql = """
+            SELECT *
+            FROM classes
+            WHERE class_date >= CURRENT_DATE
+            """
+    results = run_sql(sql)
+    gym_classes = []
+    if results:
+        for row in results:
+            name = row['name']
+            class_date = date.fromisoformat(row['class_date'])
+            class_time = date.fromisoformat(row['class_time'])
+            capacity = row['capacity']
+            is_active = row['is_active']
+            id = row['id']
+            gym_class = GymClass(name, class_date, class_time, capacity, is_active, id)
+            gym_classes.append(gym_class)
+    return gym_classes
+
 # SAVE ONE
 def save(gym_class: GymClass) -> GymClass:
     sql = """
