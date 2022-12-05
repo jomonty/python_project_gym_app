@@ -5,8 +5,8 @@ DROP TABLE IF EXISTS classes;
 CREATE TABLE classes (
     id SERIAL PRIMARY KEY,
     name VARCHAR(255),
-    class_date VARCHAR(20),
-    class_time VARCHAR(20),
+    class_date DATE,
+    class_time TIME,
     capacity INT,
     is_active BOOLEAN
 );

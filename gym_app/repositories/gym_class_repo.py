@@ -1,3 +1,4 @@
+from datetime import date, time
 from db.run_sql import run_sql
 from models.gym_class import GymClass
 from models.member import Member
@@ -14,8 +15,8 @@ def select(id: int) -> GymClass:
     if results:
         result = results[0]
         name = result['name']
-        class_date = result['class_date']
-        class_time = result['class_time']
+        class_date = date.fromisoformat(result['class_date'])
+        class_time = time.fromisoformat(result['class_time'])
         capacity = result['capacity']
         is_active = result['is_active']
         id = result['id']
@@ -33,8 +34,8 @@ def select_all() -> list[GymClass]:
     if results:
         for row in results:
             name = row['name']
-            class_date = row['class_date']
-            class_time = row['class_time']
+            class_date = date.fromisoformat(row['class_date'])
+            class_time = time.fromisoformat(row['class_time'])
             capacity = row['capacity']
             is_active = row['is_active']
             id = row['id']
@@ -49,7 +50,11 @@ def save(gym_class: GymClass) -> GymClass:
             (%s, %s, %s, %s, %s)
             RETURNING *
             """
-    values = [gym_class.name, gym_class.class_date, gym_class.class_time, gym_class.capacity, gym_class.is_active]
+    values = [gym_class.name, 
+              gym_class.class_date.isoformat(), 
+              gym_class.class_time.isoformat(), 
+              gym_class.capacity, 
+              gym_class.is_active]
     results = run_sql(sql, values)
     if results:
         result = results[0]
@@ -81,7 +86,12 @@ def update(gym_class: GymClass) -> None:
             SET (name, class_date, class_time, capacity, is_active) = (%s, %s, %s, %s, %s)
             WHERE id = %s
             """
-    values = [gym_class.name, gym_class.class_date, gym_class.class_time, gym_class.capacity, gym_class.is_active, gym_class.id]
+    values = [gym_class.name, 
+              gym_class.class_date.isoformat(), 
+              gym_class.class_time.isoformat(), 
+              gym_class.capacity, 
+              gym_class.is_active, 
+              gym_class.id]
     run_sql(sql, values)
 
 # Return all members booked onto a gym_class

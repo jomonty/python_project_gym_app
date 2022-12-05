@@ -1,3 +1,4 @@
+from datetime import date, time
 from db.run_sql import run_sql
 from models.member import Member
 from models.gym_class import GymClass
@@ -97,8 +98,8 @@ def get_all_booked_classes(id: int) -> list[GymClass]:
     if results:
         for row in results:
             name = row['name']
-            class_date = row['class_date']
-            class_time = row['class_time']
+            class_date = date.fromisoformat(row['class_date'])
+            class_time = time.fromisoformat(row['class_time'])
             capacity = row['capacity']
             is_active = row['is_active']
             id = row['id']
