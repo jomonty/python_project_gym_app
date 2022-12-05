@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block header_title_content %}
+    All Bookings
+{% endblock %}
+
+{% block body_main_content %}
+    <header class="bookings-header">
+        <h2>All Bookings</h2>
+        <nav class="bookings-header-nav">
+            <a href="/bookings">Show All Bookings</a>
+            <a href="/bookings/new">Make New Booking</a>
+        </nav>
+    </header>
+    <main class="bookings-main">
+        <table>
+            <tr>
+                <th>Class Name</th>
+                <th>Class Date</th>
+                <th>Class Time</th>
+                <th>Member Name</th>
+                <th>Booking Timestamp</th>
+                <th></th>
+            </tr>
+            {% for booking in bookings %}
+                <tr>
+                    <td>{{ booking.gym_class.name }}</td>
+                    <td>{{ booking.gym_class.class_date }}</td>
+                    <td>{{ booking.gym_class.class_time }}</td>
+                    <td>{{ booking.member.get_full_name() }}</td>
+                    <td>{{ booking.create_date }}</td>
+                    <td>
+                        <button>
+                            <a href="booking/{{ booking.id }}/delete">Delete</a>
+                        </button>
+                    </td>
+                </tr>
+                
+            {% endfor %}
+        </table>
+    </main>
+{% endblock %}

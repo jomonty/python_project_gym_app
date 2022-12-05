@@ -24,16 +24,26 @@ def select(id: int) -> GymClass:
         return gym_class
 
 # SELECT ALL
-def select_all(upcoming=False, inactive=False, historical=False) -> list[GymClass]:
+def select_all(upcoming=False, 
+               inactive=False, 
+               historical=False,
+               name_filter=None) -> list[GymClass]:
     if upcoming == True:
         sql = """SELECT * FROM classes WHERE class_date >= CURRENT_DATE and is_active = true"""
+        values = []
     elif inactive == True:
         sql = """SELECT * FROM classes WHERE is_active = false"""
+        values = []
     elif historical == True:
         sql = """SELECT * FROM classes WHERE class_date < CURRENT_DATE"""
+        values = []
+    elif name_filter != None:
+        sql = """SELECT * FROM classes WHERE class_name = %s"""
+        values = []
     else:
         sql = """SELECT * FROM classes"""
-    results = run_sql(sql)
+        values = []
+    results = run_sql(sql, values)
     gym_classes = []
     if results:
         for row in results:
@@ -46,6 +56,18 @@ def select_all(upcoming=False, inactive=False, historical=False) -> list[GymClas
             gym_class = GymClass(name, class_date, class_time, capacity, is_active, id)
             gym_classes.append(gym_class)
     return gym_classes
+
+# SELECT ALL CLASS NAMES
+def select_distinct_classes() -> list[str]:
+    sql = """
+            SELECT DISTINCT name
+            FROM classes"""
+    results = run_sql(sql)
+    distinct_classes = []
+    if results:
+        for row in results:
+            distinct_classes.append(row['name'])
+    return distinct_classes
 
 # SAVE ONE
 def save(gym_class: GymClass) -> GymClass:

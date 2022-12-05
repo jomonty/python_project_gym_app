@@ -19,7 +19,8 @@ def select(id: int) -> Booking:
         id = result['id']
         member = member_repo.select(result['member_id'])
         gym_class = gym_class_repo.select(result['class_id'])
-        booking = Booking(gym_class, member, id)
+        create_date = result['create_date']
+        booking = Booking(gym_class, member, create_date, id)
         return booking
 
 # SELECT ALL
@@ -35,7 +36,8 @@ def select_all() -> list[Booking]:
             id = row['id']
             member = member_repo.select(row['member_id'])
             gym_class = gym_class_repo.select(row['class_id'])
-            booking = Booking(gym_class, member, id)
+            create_date = row['create_date']
+            booking = Booking(gym_class, member, create_date, id)
             bookings.append(booking)
     return bookings
 
@@ -53,6 +55,7 @@ def save(booking: Booking) -> Booking:
     if results:
         result = results[0]
         booking.id = result['id']
+        booking.create_date = result['create_date']
         return booking
 
 # DELETE ONE
@@ -77,7 +80,7 @@ def delete_all() -> None:
 def update(booking: Booking) -> None:
     sql = """
             UPDATE bookings
-            SET (class_id, member_id) = (%s, %s)
+            SET (class_id, member_id, update_date) = (%s, %s, %s)
             WHERE id = %s
             """
     values = [booking.gym_class.id, booking.member.id]
