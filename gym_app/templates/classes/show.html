@@ -37,5 +37,22 @@
                 </a>
             </button>
         </section>
+        <section class="members-main">
+            {% for member in members %}
+            <section class="card-member">
+                <div>
+                    <p>Name: <a href="/members/{{ member.id }}">{{ member.get_full_name() }}</a></p>
+                    <p>Premium? {{ member.is_premium }}</p>
+                    <p>Active? {{ member.is_active }}</p>
+                </div>
+                <div class="member-show-buttons">
+                    <button>
+                        <!-- <a href="">Remove from class</a> -->
+                        Remove From Class
+                    </button>
+                </div>
+            </section>
+            {% endfor %}
+        </section>
     </main>
 {% endblock %}

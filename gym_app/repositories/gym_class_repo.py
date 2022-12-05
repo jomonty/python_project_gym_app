@@ -38,7 +38,6 @@ def select_all(upcoming=False, inactive=False, historical=False) -> list[GymClas
     if results:
         for row in results:
             name = row['name']
-            print(row['class_date'])
             class_date = row['class_date']
             class_time = row['class_time']
             capacity = row['capacity']
@@ -121,4 +120,5 @@ def get_all_booked_members(id: int) -> list[Member]:
             id = row['id']
             member = Member(first_name, last_name, is_premium, is_active, id)
             members.append(member)
+    print(members[0].first_name)
     return members

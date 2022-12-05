@@ -16,7 +16,8 @@ def all_members():
 @members_blueprint.route('/members/<int:id>', methods=['GET'])
 def one_member(id):
     member = member_repo.select(id)
-    return render_template('members/show.html', member = member)
+    classes = member_repo.get_all_booked_classes(member.id)
+    return render_template('members/show.html', member = member, classes = classes)
 
 # CREATE - GET - Show form
 @members_blueprint.route('/members/new', methods=['GET'])

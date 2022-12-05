@@ -43,7 +43,8 @@ def all_classes():
 @classes_blueprint.route('/classes/<int:id>', methods=['GET'])
 def one_class(id):
     gym_class = gym_class_repo.select(id)
-    return render_template('classes/show.html', gym_class = gym_class)
+    members = gym_class_repo.get_all_booked_members(gym_class.id)
+    return render_template('classes/show.html', gym_class = gym_class, members = members)
 
 # CREATE - GET - Show form
 @classes_blueprint.route('/classes/new', methods=['GET'])

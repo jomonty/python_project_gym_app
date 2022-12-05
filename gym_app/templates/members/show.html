@@ -30,5 +30,22 @@
                 </a>
             </button>
         </section>
+        <section class="classes-main">
+            {% for class in classes %}
+            <section class="card-class">
+                <p>Name: <a href="/classes/{{ class.id }}">{{ class.name }}</a></p>
+                <p>Date: {{ class.class_date }}</p>
+                <p>Time: {{ class.class_time }}</p>
+                <p>Capacity: {{ class.capacity }}</p>
+                <p>Active? {{ class.is_active }}</p>
+                <div class="class-show-buttons">
+                    <button>
+                        <!-- <a href="">Unbook</a> -->
+                        Unbook
+                    </button>
+                </div>
+            </section>
+        {% endfor %}
+        </section>
     </main>
 {% endblock %}
