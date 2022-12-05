@@ -1,0 +1,36 @@
+.base-style {
+    display: grid;
+    grid-template-areas:
+        'base-header'
+        'base-main'
+        'base-footer';
+    grid-template-rows: 100px 100% 100px;
+    background-color: lightblue;
+    margin: 0;
+}
+.base-style-header {
+    grid-area: base-header;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+.base-header-nav {
+    display: flex;
+    column-gap: 1em;
+    align-items: flex-end;
+}
+.base-style-main {
+    grid-area: base-main;
+    background-color: aliceblue;
+}
+.base-style-footer {
+    grid-area: base-footer;
+    display: flex;
+    justify-content: space-around;
+}
+.base-footer-nav {
+    display: flex;
+    flex-direction: column;
+    row-gap: 0.5em;
+    padding-top: 1em;
+}
