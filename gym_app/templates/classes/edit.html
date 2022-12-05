@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block header_title_content %}
+    Edit Class
+{% endblock %}
+
+{% block body_main_content %}
+    <header class="classes-header">
+        <h2>Edit Class</h2>
+    </header>
+    <main class="classes-main">
+        <form action="/classes/new" method="post">
+            <div class="label-input-pair">
+                <label for="name">Name: </label>
+                <input type="text" 
+                        id="name" 
+                        name="name"
+                        value="{{ gym_class.name }}">
+            </div>
+            <div class="label-input-pair">
+                <label for="class_date">Class Date: </label>
+                <input type="date" 
+                        id="class_date" 
+                        name="class_date" 
+                        value="{{ gym_class.class_date }}">
+            </div>
+            <div class="label-input-pair">
+                <label for="class_time">Class Time: </label>
+                <input type="time" 
+                        id="class_time" 
+                        name="class_time" 
+                        value="{{ gym_class.class_time }}">
+            </div>
+            <div class="label-input-pair">
+                <label for="capacity">Capacity: </label>
+                <input type="number" 
+                        id="capacity" 
+                        name="capacity" 
+                        value="{{ gym_class.capacity }}">
+            </div>
+            <div class="label-input-pair">
+                <label for="active">Active? </label>
+                <input type="checkbox" 
+                        id="active" 
+                        name="active" {% if gym_class.is_active %}checked{% endif %}>
+            </div>
+            <button type="submit">Save</button>
+        </form>
+    </main>
+{% endblock %}

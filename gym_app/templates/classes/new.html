@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block header_title_content %}
+    Create New Class
+{% endblock %}
+
+{% block body_main_content %}
+    <header class="classes-header">
+        <h2>Create New Class</h2>
+    </header>
+    <main class="classes-main">
+        <form action="/classes/new" method="post">
+            <div class="label-input-pair">
+                <label for="name">Name: </label>
+                <input type="text" id="name" name="name">
+            </div>
+            <div class="label-input-pair">
+                <label for="class_date">Class Date: </label>
+                <input type="date" id="class_date" name="class_date" value="{{ default_date }}">
+            </div>
+            <div class="label-input-pair">
+                <label for="class_time">Class Time: </label>
+                <input type="time" id="class_time" name="class_time" value="{{ default_time }}">
+            </div>
+            <div class="label-input-pair">
+                <label for="capacity">Capacity: </label>
+                <input type="number" id="capacity" name="capacity" value="10">
+            </div>
+            <div class="label-input-pair">
+                <label for="active">Active? </label>
+                <input type="checkbox" id="active" name="active" checked>
+            </div>
+            <button type="submit">Save</button>
+        </form>
+    </main>
+{% endblock %}

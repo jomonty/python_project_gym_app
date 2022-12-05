@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block header_title_content %}
+    Class Detail
+{% endblock %}
+
+{% block body_main_content %}
+    <header class="classes-header">
+        <h2>Class Detail</h2>
+        <nav class="classes-header-nav">
+            <a href="/classes">Upcoming</a>
+            <a href="/classes/all">All</a>
+            <a href="/classes/historical">Historical</a>
+            <a href="/classes/inactive">Inactive</a>
+        </nav>
+    </header>
+    <main class="classes-main">
+        <section class="card-class">
+            <p>Name: {{ gym_class.name }}</p>
+            <p>Date: {{ gym_class.class_date }}</p>
+            <p>Time: {{ gym_class.class_time }}</p>
+            <p>Capacity: {{ gym_class.capacity }}</p>
+            <p>Active? {{ gym_class.is_active }}</p>
+            <button>
+                <a href="/classes/{{ gym_class.id }}/edit">Edit</a>
+            </button>
+            <button>
+                <a href="/classes/{{ gym_class.id }}/delete">Delete</a>
+            </button>
+        </section>
+    </main>
+{% endblock %}

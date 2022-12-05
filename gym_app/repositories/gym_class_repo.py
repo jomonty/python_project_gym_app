@@ -15,8 +15,8 @@ def select(id: int) -> GymClass:
     if results:
         result = results[0]
         name = result['name']
-        class_date = date.fromisoformat(result['class_date'])
-        class_time = time.fromisoformat(result['class_time'])
+        class_date = result['class_date']
+        class_time = result['class_time']
         capacity = result['capacity']
         is_active = result['is_active']
         id = result['id']
@@ -26,11 +26,11 @@ def select(id: int) -> GymClass:
 # SELECT ALL
 def select_all(upcoming=False, inactive=False, historical=False) -> list[GymClass]:
     if upcoming == True:
-        sql = """SELECT * FROM classes WHERE date >= CURRENT_DATE"""
+        sql = """SELECT * FROM classes WHERE class_date >= CURRENT_DATE and is_active = true"""
     elif inactive == True:
         sql = """SELECT * FROM classes WHERE is_active = false"""
     elif historical == True:
-        sql = """SELECT * FROM classes WHERE date < CURRNET_DATE"""
+        sql = """SELECT * FROM classes WHERE class_date < CURRENT_DATE"""
     else:
         sql = """SELECT * FROM classes"""
     results = run_sql(sql)
@@ -38,13 +38,15 @@ def select_all(upcoming=False, inactive=False, historical=False) -> list[GymClas
     if results:
         for row in results:
             name = row['name']
-            class_date = date.fromisoformat(row['class_date'])
-            class_time = time.fromisoformat(row['class_time'])
+            print(row['class_date'])
+            class_date = row['class_date']
+            class_time = row['class_time']
             capacity = row['capacity']
             is_active = row['is_active']
             id = row['id']
             gym_class = GymClass(name, class_date, class_time, capacity, is_active, id)
             gym_classes.append(gym_class)
+    return gym_classes
 
 # SAVE ONE
 def save(gym_class: GymClass) -> GymClass:

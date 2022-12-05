@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block header_title_content %}
+    {{ header }}
+{% endblock %}
+
+{% block body_main_content %}
+    <header class="classes-header">
+        {{ header }}
+        <nav class="classes-header-nav">
+            <a href="/classes">Upcoming</a>
+            <a href="/classes/all">All</a>
+            <a href="/classes/historical">Historical</a>
+            <a href="/classes/inactive">Inactive</a>
+        </nav>
+        <a href="/classes/new">Create New Class</a>
+    </header>
+    <main class="classes-main">
+        {% for class in classes %}
+            <section class="card-class">
+                <p>Name: <a href="/classes/{{ class.id }}">{{ class.name }}</a></p>
+                <p>Date: {{ class.class_date }}</p>
+                <p>Time: {{ class.class_time }}</p>
+                <p>Capacity: {{ class.capacity }}</p>
+                <p>Active? {{ class.is_active }}</p>
+                <div class="class-show-buttons">
+                    <button>
+                        <a href="/classes/{{ class.id }}/edit">Edit</a>
+                    </button>
+                    <button>
+                        <a href="/classes/{{ class.id }}/delete">Delete</a>
+                    </button>
+                </div>
+            </section>
+        {% endfor %}
+    </main>
+{% endblock %}
