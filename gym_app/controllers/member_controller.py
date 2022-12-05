@@ -9,6 +9,7 @@ members_blueprint = Blueprint('members', __name__)
 @members_blueprint.route('/members', methods=['GET'])
 def all_members():
     members = member_repo.select_all()
+    members.sort(key=lambda x: x.last_name)
     return render_template('members/index.html', members = members)
 
 # READ - Show One
@@ -57,3 +58,11 @@ def one_member_edit_save(id):
 def one_member_delete(id):
     member_repo.delete(id)
     return redirect('/members')
+
+# EDIT - GET - Toggle Active/Inactive
+@members_blueprint.route('/members/<int:id>/toggle', methods=['GET'])
+def toggle_active(id):
+    member = member_repo.select(id)
+    member.is_active = not member.is_active
+    member = member_repo.update(member)
+    return redirect(request.referrer)

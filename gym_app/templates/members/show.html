@@ -20,6 +20,15 @@
             <button>
                 <a href="/members/{{ member.id }}/delete">Delete</a>
             </button>
+            <button>
+                <a href="/members/{{ member.id }}/toggle">
+                    {% if member.is_active %}
+                        Set Inactive
+                    {% else %}
+                        Set Active
+                    {% endif %}
+                </a>
+            </button>
         </section>
     </main>
 {% endblock %}

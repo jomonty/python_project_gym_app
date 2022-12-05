@@ -22,7 +22,13 @@
                         <a href="/members/{{ member.id }}/edit">Edit</a>
                     </button>
                     <button>
-                        <a href="/members/{{ member.id }}/delete">Delete</a>
+                        <a href="/members/{{ member.id }}/toggle">
+                            {% if member.is_active %}
+                                Set Inactive
+                            {% else %}
+                                Set Active
+                            {% endif %}
+                        </a>
                     </button>
                 </div>
             </section>

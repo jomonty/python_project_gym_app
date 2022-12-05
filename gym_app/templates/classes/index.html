@@ -6,7 +6,7 @@
 
 {% block body_main_content %}
     <header class="classes-header">
-        {{ header }}
+        <h2>{{ header }}</h2>
         <nav class="classes-header-nav">
             <a href="/classes">Upcoming</a>
             <a href="/classes/all">All</a>
@@ -28,7 +28,13 @@
                         <a href="/classes/{{ class.id }}/edit">Edit</a>
                     </button>
                     <button>
-                        <a href="/classes/{{ class.id }}/delete">Delete</a>
+                        <a href="/classes/{{ class.id }}/toggle">
+                            {% if class.is_active %}
+                                Set Inactive
+                            {% else %}
+                                Set Active
+                            {% endif %}
+                        </a>
                     </button>
                 </div>
             </section>

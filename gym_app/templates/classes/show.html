@@ -27,6 +27,15 @@
             <button>
                 <a href="/classes/{{ gym_class.id }}/delete">Delete</a>
             </button>
+            <button>
+                <a href="/classes/{{ gym_class.id }}/toggle">
+                    {% if gym_class.is_active %}
+                        Set Inactive
+                    {% else %}
+                        Set Active
+                    {% endif %}
+                </a>
+            </button>
         </section>
     </main>
 {% endblock %}
