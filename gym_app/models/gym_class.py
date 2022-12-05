@@ -8,3 +8,4 @@ class GymClass:
         self.capacity = capacity
         self.is_active = is_active
         self.id = id
+

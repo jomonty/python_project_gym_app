@@ -15,18 +15,26 @@
     <main class="bookings-main">
         <table>
             <tr>
-                <th>Class Name</th>
+                <!-- <th>Class Name</th>
                 <th>Class Date</th>
-                <th>Class Time</th>
+                <th>Class Time</th> -->
+                <th>Class</th>
                 <th>Member Name</th>
                 <th>Booking Timestamp</th>
                 <th></th>
             </tr>
             {% for booking in bookings %}
                 <tr>
-                    <td><a href="/classes/{{ booking.gym_class.id }}">{{ booking.gym_class.name }}</a></td>
+                    <!-- <td><a href="/classes/{{ booking.gym_class.id }}">{{ booking.gym_class.name }}</a></td>
                     <td>{{ booking.gym_class.class_date }}</td>
-                    <td>{{ booking.gym_class.class_time }}</td>
+                    <td>{{ booking.gym_class.class_time }}</td> -->
+                    <td>
+                        <a href="/classes/{{ booking.gym_class.id }}">
+                            {{ booking.gym_class.name }} - 
+                            {{ booking.gym_class.class_date.strftime('%a %d %b %Y') }} - 
+                            {{ booking.gym_class.class_time.strftime('%I:%M %p') }}
+                        </a>
+                    </td>
                     <td>{{ booking.member.get_full_name() }}</td>
                     <td>{{ booking.create_date }}</td>
                     <td>

@@ -67,6 +67,7 @@ def select_all_inactive():
             SELECT *
             FROM classes
             WHERE is_active = false
+            AND class_date >= CURRENT_DATE
             """
     results = run_sql(sql)
     gym_classes = results_parser(results)

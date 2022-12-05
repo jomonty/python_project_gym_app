@@ -2,13 +2,12 @@ from datetime import date, time
 from flask import render_template, redirect, request
 from flask import Blueprint
 
+from db.run_sql import run_sql
+
 from models.gym_class import GymClass
 
 import repositories.gym_class_repo as gym_class_repo
-import repositories.booking_repo as booking_repo
 import repositories.admin_repo as admin_repo
-
-from db.run_sql import run_sql
 
 classes_blueprint = Blueprint('classes', __name__)
 
@@ -18,7 +17,7 @@ def all_classes_upcoming():
     classes = gym_class_repo.select_all_upcoming()
     classes.sort(key=lambda x: x.class_date)
     header = 'All Upcoming Classes'
-    return render_template('classes/index.html', classes = classes, header = header)
+    return render_template('classes/index.html', classes=classes, header=header)
 
 # READ - GET - Show all historical
 @classes_blueprint.route('/classes/historical', methods=['GET'])
@@ -26,7 +25,7 @@ def all_classes_historical():
     classes = gym_class_repo.select_all_historic()
     classes.sort(key=lambda x: x.class_date)
     header = 'All Historical Classes'
-    return render_template('classes/index.html', classes = classes, header = header)
+    return render_template('classes/index.html', classes=classes, header=header)
 
 # READ - GET - Show all inactive
 @classes_blueprint.route('/classes/inactive', methods=['GET'])
@@ -34,7 +33,7 @@ def all_classes_inactive():
     classes = gym_class_repo.select_all_inactive()
     classes.sort(key=lambda x: x.class_date)
     header = 'All Inactive Classes'
-    return render_template('classes/index.html', classes = classes, header = header)
+    return render_template('classes/index.html', classes=classes, header=header)
 
 # READ - GET - Show all
 @classes_blueprint.route('/classes/all', methods=['GET'])
@@ -42,7 +41,7 @@ def all_classes():
     classes = gym_class_repo.select_all()
     classes.sort(key=lambda x: x.class_date)
     header = 'All Classes'
-    return render_template('classes/index.html', classes = classes, header = header)
+    return render_template('classes/index.html', classes=classes, header=header)
 
 # READ - GET - Show One
 @classes_blueprint.route('/classes/<int:id>', methods=['GET'])
@@ -77,7 +76,7 @@ def create_class_save():
 @classes_blueprint.route('/classes/<int:id>/edit', methods=['GET'])
 def one_class_edit_show(id):
     gym_class = gym_class_repo.select(id)
-    return render_template('classes/edit.html', gym_class = gym_class)
+    return render_template('classes/edit.html', gym_class=gym_class)
 
 # EDIT - POST - Process Request
 @classes_blueprint.route('/classes/<int:id>/edit', methods=['POST'])
