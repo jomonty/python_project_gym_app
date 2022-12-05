@@ -85,3 +85,16 @@ def update(booking: Booking) -> None:
             """
     values = [booking.gym_class.id, booking.member.id]
     run_sql(sql, values)
+    
+# IS CLASS FULL
+def is_class_full(gym_class: GymClass) -> bool:
+    sql = """
+            SELECT count(*) count_booked
+            FROM bookings b
+            WHERE b.class_id = %s
+            """
+    values = [gym_class.id]
+    results = run_sql(sql, values)
+    if results['count_booked'] < gym_class.capacity:
+        return False
+    return True

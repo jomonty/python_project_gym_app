@@ -10,7 +10,7 @@ classes_blueprint = Blueprint('classes', __name__)
 # READ - GET - Show all upcoming
 @classes_blueprint.route('/classes', methods=['GET'])
 def all_classes_upcoming():
-    classes = gym_class_repo.select_all(upcoming=True)
+    classes = gym_class_repo.select_all_upcoming()
     classes.sort(key=lambda x: x.class_date)
     header = 'All Upcoming Classes'
     return render_template('classes/index.html', classes = classes, header = header)
@@ -18,7 +18,7 @@ def all_classes_upcoming():
 # READ - GET - Show all historical
 @classes_blueprint.route('/classes/historical', methods=['GET'])
 def all_classes_historical():
-    classes = gym_class_repo.select_all(historical=True)
+    classes = gym_class_repo.select_all_historic()
     classes.sort(key=lambda x: x.class_date)
     header = 'All Historical Classes'
     return render_template('classes/index.html', classes = classes, header = header)
@@ -26,7 +26,7 @@ def all_classes_historical():
 # READ - GET - Show all inactive
 @classes_blueprint.route('/classes/inactive', methods=['GET'])
 def all_classes_inactive():
-    classes = gym_class_repo.select_all(inactive=True)
+    classes = gym_class_repo.select_all_inactive()
     classes.sort(key=lambda x: x.class_date)
     header = 'All Inactive Classes'
     return render_template('classes/index.html', classes = classes, header = header)

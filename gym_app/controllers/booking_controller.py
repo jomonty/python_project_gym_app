@@ -24,13 +24,9 @@ def one_booking_delete(id):
 def new_booking_handler():
     class_names = gym_class_repo.select_distinct_classes()
     class_names.sort()
-    return render_template('bookings/new_base.html', class_names = class_names)
+    return render_template('bookings/class_choice.html', class_names = class_names)
 
-@bookings_blueprint.route('/bookings/new', methods=['POST'])
-def new_booking_class():
-    form_data = request.form
-    class_name = form_data['class_name']
-    return render_template('bookings/new.html', class_name = class_name)
+
 
 
 

@@ -3,6 +3,19 @@ from db.run_sql import run_sql
 from models.member import Member
 from models.gym_class import GymClass
 
+# RESULTS PARSER
+def results_parser(results):
+    members = []
+    for row in results:
+        first_name = row['first_name']
+        last_name = row['last_name']
+        is_premium = row['is_premium']
+        is_active = row['is_active']
+        id = row['id']
+        member = Member(first_name, last_name, is_premium, is_active, id)
+        members.append(member)
+    return members
+
 # SELECT ONE
 def select(id: int) -> Member:
     sql = """
@@ -13,12 +26,7 @@ def select(id: int) -> Member:
     values = [id]
     results = run_sql(sql, values)
     if results:
-        result = results[0]
-        first_name = result['first_name']
-        last_name = result['last_name']
-        is_premium = result['is_premium']
-        is_active = result['is_active']
-        member = Member(first_name, last_name, is_premium, is_active, id)
+        member = results_parser(results)[0]
         return member
 
 # SELECT ALL
@@ -28,18 +36,22 @@ def select_all() -> list[Member]:
             FROM members
             """
     results = run_sql(sql)
-    members = []
     if results:
-        for row in results:
-            first_name = row['first_name']
-            last_name = row['last_name']
-            is_premium = row['is_premium']
-            is_active = row['is_active']
-            id = row['id']
-            member = Member(first_name, last_name, is_premium, is_active, id)
-            members.append(member)
-    return members
+        members = results_parser(results)
+        return members
 
+# SELECT ALL ACTIVE
+def select_all_active() -> list[Member]:
+    sql = """
+            SELECT *
+            FROM members
+            WHERE is_active = true
+            """
+    results = run_sql(sql)
+    if results:
+        members = results_parser(results)
+        return members
+    
 # SAVE ONE
 def save(member: Member) -> Member:
     sql = """

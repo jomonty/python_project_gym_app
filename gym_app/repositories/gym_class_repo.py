@@ -3,6 +3,19 @@ from db.run_sql import run_sql
 from models.gym_class import GymClass
 from models.member import Member
 
+def results_parser(results: dict) -> list[GymClass]:
+    gym_classes = []
+    for row in results:
+        name = row['name']
+        class_date = row['class_date']
+        class_time = row['class_time']
+        capacity = row['capacity']
+        is_active = row['is_active']
+        id = row['id']
+        gym_class = GymClass(name, class_date, class_time, capacity, is_active, id)
+        gym_classes.append(gym_class)
+    return gym_classes
+        
 # SELECT ONE
 def select(id: int) -> GymClass:
     sql = """
@@ -13,49 +26,68 @@ def select(id: int) -> GymClass:
     values = [id]
     results = run_sql(sql, values)
     if results:
-        result = results[0]
-        name = result['name']
-        class_date = result['class_date']
-        class_time = result['class_time']
-        capacity = result['capacity']
-        is_active = result['is_active']
-        id = result['id']
-        gym_class = GymClass(name, class_date, class_time, capacity, is_active, id)
-        return gym_class
+        gym_classes = results_parser(results)
+        return gym_classes[0]
 
 # SELECT ALL
-def select_all(upcoming=False, 
-               inactive=False, 
-               historical=False,
-               name_filter=None) -> list[GymClass]:
-    if upcoming == True:
-        sql = """SELECT * FROM classes WHERE class_date >= CURRENT_DATE and is_active = true"""
-        values = []
-    elif inactive == True:
-        sql = """SELECT * FROM classes WHERE is_active = false"""
-        values = []
-    elif historical == True:
-        sql = """SELECT * FROM classes WHERE class_date < CURRENT_DATE"""
-        values = []
-    elif name_filter != None:
-        sql = """SELECT * FROM classes WHERE class_name = %s"""
-        values = []
-    else:
-        sql = """SELECT * FROM classes"""
-        values = []
-    results = run_sql(sql, values)
-    gym_classes = []
+def select_all():
+    sql = """
+            SELECT *
+            FROM classes
+            """
+    results = run_sql(sql)
     if results:
-        for row in results:
-            name = row['name']
-            class_date = row['class_date']
-            class_time = row['class_time']
-            capacity = row['capacity']
-            is_active = row['is_active']
-            id = row['id']
-            gym_class = GymClass(name, class_date, class_time, capacity, is_active, id)
-            gym_classes.append(gym_class)
-    return gym_classes
+        gym_classes = results_parser(results)
+        return gym_classes
+
+# SELECT ALL UPCOMING
+def select_all_upcoming():
+    sql = """
+            SELECT *
+            FROM classes
+            WHERE class_date >= CURRENT_DATE and is_active = true
+            """
+    results = run_sql(sql)
+    if results:
+        gym_classes = results_parser(results)
+        return gym_classes
+
+# SELECT ALL HISTORIC
+def select_all_historic():
+    sql = """
+            SELECT *
+            FROM classes
+            WHERE class_date < CURRENT_DATE
+            """
+    results = run_sql(sql)
+    if results:
+        gym_classes = results_parser(results)
+        return gym_classes
+
+# SELECT ALL INACTIVE
+def select_all_inactive():
+    sql = """
+            SELECT *
+            FROM classes
+            WHERE is_active = false
+            """
+    results = run_sql(sql)
+    if results:
+        gym_classes = results_parser(results)
+        return gym_classes
+    
+# SELECT ALL BY NAME
+def select_all_by_name(class_name):
+    sql = """
+            SELECT *
+            FROM classes
+            WHERE name = %s
+            """
+    values = [class_name]
+    results = run_sql(sql, values)
+    if results:
+        gym_classes = results_parser(results)
+        return gym_classes
 
 # SELECT ALL CLASS NAMES
 def select_distinct_classes() -> list[str]:
@@ -142,5 +174,4 @@ def get_all_booked_members(id: int) -> list[Member]:
             id = row['id']
             member = Member(first_name, last_name, is_premium, is_active, id)
             members.append(member)
-    print(members[0].first_name)
     return members

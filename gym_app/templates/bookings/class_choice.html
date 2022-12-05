@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block header_title_content %}
+    New Booking
+{% endblock %}
+
+{% block body_main_content %}
+    <header>
+        <h2>Select class to book</h2>
+    </header>
+    <main class="booking-class-container">
+        {% for class in class_names %}
+            <section class="card-booking-class">
+                <p>{{ class }}</p>
+                <button>
+                    <a href="/bookings/new/{{ class }}">Book</a>
+                </button>
+            </section>
+        {% endfor %}
+    </main>
+{% endblock %}
