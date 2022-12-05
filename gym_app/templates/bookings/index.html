@@ -24,7 +24,7 @@
             </tr>
             {% for booking in bookings %}
                 <tr>
-                    <td>{{ booking.gym_class.name }}</td>
+                    <td><a href="/classes/{{ booking.gym_class.id }}">{{ booking.gym_class.name }}</a></td>
                     <td>{{ booking.gym_class.class_date }}</td>
                     <td>{{ booking.gym_class.class_time }}</td>
                     <td>{{ booking.member.get_full_name() }}</td>

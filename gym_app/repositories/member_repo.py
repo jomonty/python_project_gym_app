@@ -25,9 +25,7 @@ def select(id: int) -> Member:
             """
     values = [id]
     results = run_sql(sql, values)
-    if results:
-        member = results_parser(results)[0]
-        return member
+    return results_parser(results)[0]
 
 # SELECT ALL
 def select_all() -> list[Member]:
@@ -36,9 +34,7 @@ def select_all() -> list[Member]:
             FROM members
             """
     results = run_sql(sql)
-    if results:
-        members = results_parser(results)
-        return members
+    return results_parser(results)
 
 # SELECT ALL ACTIVE
 def select_all_active() -> list[Member]:
@@ -48,9 +44,7 @@ def select_all_active() -> list[Member]:
             WHERE is_active = true
             """
     results = run_sql(sql)
-    if results:
-        members = results_parser(results)
-        return members
+    return results_parser(results)
 
 # SAVE ONE
 def save(member: Member) -> Member:
@@ -64,9 +58,8 @@ def save(member: Member) -> Member:
     values = [member.first_name, member.last_name, member.is_premium, member.is_active]
     results = run_sql(sql, values)
     if results:
-        result = results[0]
-        member.id = result['id']
-        return member
+        member.id = results[0]['id']
+    return member
     
 # DELETE ONE
 def delete(id: int) -> None:

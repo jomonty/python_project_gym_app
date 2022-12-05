@@ -27,8 +27,7 @@ def select(id: int) -> Booking:
     values = [id]
     results = run_sql(sql, values)
     if results:
-        booking = result_parser(results)[0]
-        return booking
+        return result_parser(results)[0]
 
 # SELECT ALL
 def select_all() -> list[Booking]:
@@ -37,9 +36,8 @@ def select_all() -> list[Booking]:
             FROM bookings
             """
     results = run_sql(sql)
-    if results:
-        bookings = result_parser(results)
-        return bookings
+    return result_parser(results)
+
 
 # SELECT ALL BOOKINGS FOR CLASS
 def select_all_by_class(gym_class: GymClass) -> list[Booking]:
@@ -50,9 +48,7 @@ def select_all_by_class(gym_class: GymClass) -> list[Booking]:
             """
     values = [gym_class.id]
     results = run_sql(sql, values)
-    if results:
-        bookings = result_parser(results)
-        return bookings
+    return result_parser(results)
 
 # SAVE ONE
 def save(booking: Booking) -> Booking:
@@ -66,10 +62,8 @@ def save(booking: Booking) -> Booking:
     values = [booking.gym_class.id, booking.member.id]
     results = run_sql(sql, values)
     if results:
-        result = results[0]
-        booking.id = result['id']
-        booking.create_date = result['create_date']
-        return booking
+        booking = result_parser(results)[0]
+    return booking
 
 # DELETE ONE
 def delete(id: int) -> None:

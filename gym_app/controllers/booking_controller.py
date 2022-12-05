@@ -29,7 +29,7 @@ def new_booking_handler():
 
 @bookings_blueprint.route('/bookings/new/<string:class_name>', methods=['GET'])
 def new_booking_class(class_name):
-    gym_classes = gym_class_repo.select_all_by_name(class_name)
+    gym_classes = gym_class_repo.select_all_upcoming_by_name(class_name)
     gym_class_status = {}
     for gym_class in gym_classes:
         gym_class_status[gym_class.id] = booking_repo.is_class_full(gym_class)

@@ -25,8 +25,8 @@ def select(id: int) -> GymClass:
             """
     values = [id]
     results = run_sql(sql, values)
-    if results:
-        gym_classes = results_parser(results)
+    gym_classes = results_parser(results)
+    if gym_classes:
         return gym_classes[0]
 
 # SELECT ALL
@@ -36,9 +36,8 @@ def select_all():
             FROM classes
             """
     results = run_sql(sql)
-    if results:
-        gym_classes = results_parser(results)
-        return gym_classes
+    gym_classes = results_parser(results)
+    return gym_classes
 
 # SELECT ALL UPCOMING
 def select_all_upcoming():
@@ -48,9 +47,8 @@ def select_all_upcoming():
             WHERE class_date >= CURRENT_DATE and is_active = true
             """
     results = run_sql(sql)
-    if results:
-        gym_classes = results_parser(results)
-        return gym_classes
+    gym_classes = results_parser(results)
+    return gym_classes
 
 # SELECT ALL HISTORIC
 def select_all_historic():
@@ -60,9 +58,8 @@ def select_all_historic():
             WHERE class_date < CURRENT_DATE
             """
     results = run_sql(sql)
-    if results:
-        gym_classes = results_parser(results)
-        return gym_classes
+    gym_classes = results_parser(results)
+    return gym_classes
 
 # SELECT ALL INACTIVE
 def select_all_inactive():
@@ -72,22 +69,22 @@ def select_all_inactive():
             WHERE is_active = false
             """
     results = run_sql(sql)
-    if results:
-        gym_classes = results_parser(results)
-        return gym_classes
+    gym_classes = results_parser(results)
+    return gym_classes
     
 # SELECT ALL BY NAME
-def select_all_by_name(class_name):
+def select_all_upcoming_by_name(class_name):
     sql = """
             SELECT *
             FROM classes
-            WHERE name = %s
+            WHERE name = %s 
+            AND class_date >= CURRENT_DATE
+            AND is_active = true
             """
     values = [class_name]
     results = run_sql(sql, values)
-    if results:
-        gym_classes = results_parser(results)
-        return gym_classes
+    gym_classes = results_parser(results)
+    return gym_classes
 
 # SELECT ALL CLASS NAMES
 def select_distinct_classes() -> list[str]:
@@ -96,9 +93,8 @@ def select_distinct_classes() -> list[str]:
             FROM classes"""
     results = run_sql(sql)
     distinct_classes = []
-    if results:
-        for row in results:
-            distinct_classes.append(row['name'])
+    for row in results:
+        distinct_classes.append(row['name'])
     return distinct_classes
 
 # SAVE ONE
@@ -115,10 +111,9 @@ def save(gym_class: GymClass) -> GymClass:
               gym_class.capacity, 
               gym_class.is_active]
     results = run_sql(sql, values)
-    if results:
-        result = results[0]
-        gym_class.id = result['id']
-        return gym_class
+    result = results[0]
+    gym_class.id = result['id']
+    return gym_class
 
 # DELETE ONE
 def delete(id: int) -> None:
@@ -165,13 +160,12 @@ def get_all_booked_members(id: int) -> list[Member]:
     values = [id]
     results = run_sql(sql, values)
     members = []
-    if results:
-        for row in results:
-            first_name = row['first_name']
-            last_name = row['last_name']
-            is_premium = row['is_premium']
-            is_active = row['is_active']
-            id = row['id']
-            member = Member(first_name, last_name, is_premium, is_active, id)
-            members.append(member)
+    for row in results:
+        first_name = row['first_name']
+        last_name = row['last_name']
+        is_premium = row['is_premium']
+        is_active = row['is_active']
+        id = row['id']
+        member = Member(first_name, last_name, is_premium, is_active, id)
+        members.append(member)
     return members
