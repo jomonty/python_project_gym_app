@@ -5,12 +5,12 @@
 {% endblock %}
 
 {% block body_main_content %}
-    <header>
-        <h2>Select class to book</h2>
+    <header class="booking-header">
+        <h2>Select a class type</h2>
     </header>
-    <main class="booking-class-container">
+    <main class="booking-main">
         {% for class in class_names %}
-            <section class="card-booking-class">
+            <section class="card-class-type">
                 <p>{{ class }}</p>
                 <button>
                     <a href="/bookings/new/{{ class }}">Book</a>

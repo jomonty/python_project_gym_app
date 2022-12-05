@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block title_header_content %}
+    New Booking
+{% endblock %}
+
+{% block body_main_content %}
+    <header class="booking-header">
+        <h2>Choose a Member</h2>
+    </header>
+    <main class="booking-main">
+        <form action="/bookings/new" method="post">
+            <fieldset>
+                <legend>Member Selection - {{ gym_class.name }} - {{ gym_class.class_date }} - {{ gym_class.class_time }}</legend>
+                {% for member in members %}
+                    <div class="label-input-pair">
+                        <label for="{{ member.id }}">
+                            {{ member.get_full_name() }} 
+                        </label>
+                        <input type="radio"
+                                id="{{ member.id }}"
+                                name="member_id"
+                                value="{{ member.id }}">
+                    </div>
+                {% endfor %}
+                <input type="hidden" name="gym_class_id" value="{{ gym_class.id }}">
+                <button type="submit">Select</button>
+            </fieldset>
+        </form>
+    </main>
+{% endblock %}

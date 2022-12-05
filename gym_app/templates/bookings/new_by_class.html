@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block title_header_content %}
+    New Booking
+{% endblock %}
+
+{% block body_main_content %}
+    <header class="booking-header">
+        <h2>Choose a Date and Time</h2>
+    </header>
+    <main class="booking-main">
+        {% for gym_class in gym_classes %}
+            <section class="card-class">
+                <a href="/classes/{{ gym_class.id  }}">View Class Details</a>
+                <p>{{ gym_class.class_date }}</p>
+                <p>{{ gym_class.class_time }}</p>
+                {% if gym_class_status[gym_class.id] %}
+                    <button>
+                        Class Full
+                    </button>
+                {% else %}
+                    <button>
+                        <a href="/bookings/new/{{ gym_class.id }}">Book</a>
+                    </button>
+                {% endif %}
+                
+            </section>
+        {% endfor %}
+    </main>
+{% endblock %}

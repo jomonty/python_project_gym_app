@@ -36,19 +36,27 @@
                     {% endif %}
                 </a>
             </button>
+            {% if class_full %}
+                    <button>
+                        Class Full
+                    </button>
+                {% else %}
+                    <button>
+                        <a href="/bookings/new/{{ gym_class.id }}">Book</a>
+                    </button>
+                {% endif %}
         </section>
         <section class="members-main">
-            {% for member in members %}
+            {% for booking in bookings %}
             <section class="card-member">
                 <div>
-                    <p>Name: <a href="/members/{{ member.id }}">{{ member.get_full_name() }}</a></p>
-                    <p>Premium? {{ member.is_premium }}</p>
-                    <p>Active? {{ member.is_active }}</p>
+                    <p>Name: <a href="/members/{{ booking.member.id }}">{{ booking.member.get_full_name() }}</a></p>
+                    <p>Premium? {{ booking.member.is_premium }}</p>
+                    <p>Active? {{ booking.member.is_active }}</p>
                 </div>
                 <div class="member-show-buttons">
                     <button>
-                        <!-- <a href="">Remove from class</a> -->
-                        Remove From Class
+                        <a href="/bookings/{{ booking.id }}/delete">Remove</a>
                     </button>
                 </div>
             </section>

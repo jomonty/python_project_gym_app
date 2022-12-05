@@ -51,7 +51,7 @@ def select_all_active() -> list[Member]:
     if results:
         members = results_parser(results)
         return members
-    
+
 # SAVE ONE
 def save(member: Member) -> Member:
     sql = """

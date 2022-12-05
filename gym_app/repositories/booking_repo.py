@@ -5,6 +5,18 @@ from models.gym_class import GymClass
 import repositories.member_repo as member_repo
 import repositories.gym_class_repo as gym_class_repo
 
+# RESULT PARSER
+def result_parser(results):
+    bookings = []
+    for row in results:
+        id = row['id']
+        member = member_repo.select(row['member_id'])
+        gym_class = gym_class_repo.select(row['class_id'])
+        create_date = row['create_date']
+        booking = Booking(gym_class, member, create_date, id)
+        bookings.append(booking)
+    return bookings
+
 # SELECT ONE
 def select(id: int) -> Booking:
     sql = """
@@ -15,12 +27,7 @@ def select(id: int) -> Booking:
     values = [id]
     results = run_sql(sql, values)
     if results:
-        result = results[0]
-        id = result['id']
-        member = member_repo.select(result['member_id'])
-        gym_class = gym_class_repo.select(result['class_id'])
-        create_date = result['create_date']
-        booking = Booking(gym_class, member, create_date, id)
+        booking = result_parser(results)[0]
         return booking
 
 # SELECT ALL
@@ -30,16 +37,22 @@ def select_all() -> list[Booking]:
             FROM bookings
             """
     results = run_sql(sql)
-    bookings = []
     if results:
-        for row in results:
-            id = row['id']
-            member = member_repo.select(row['member_id'])
-            gym_class = gym_class_repo.select(row['class_id'])
-            create_date = row['create_date']
-            booking = Booking(gym_class, member, create_date, id)
-            bookings.append(booking)
-    return bookings
+        bookings = result_parser(results)
+        return bookings
+
+# SELECT ALL BOOKINGS FOR CLASS
+def select_all_by_class(gym_class: GymClass) -> list[Booking]:
+    sql = """
+            SELECT *
+            FROM bookings
+            WHERE class_id = %s
+            """
+    values = [gym_class.id]
+    results = run_sql(sql, values)
+    if results:
+        bookings = result_parser(results)
+        return bookings
 
 # SAVE ONE
 def save(booking: Booking) -> Booking:
@@ -95,6 +108,24 @@ def is_class_full(gym_class: GymClass) -> bool:
             """
     values = [gym_class.id]
     results = run_sql(sql, values)
-    if results['count_booked'] < gym_class.capacity:
-        return False
+    if results:
+        count_booked = results[0]['count_booked']
+        if count_booked < gym_class.capacity:
+            return False
     return True
+
+# SELECT ALL ACTIVE MEMBERS NOT BOOKED ON CLASS
+def select_members_for_booking(gym_class: GymClass) -> list[Member]:
+    sql = """
+            SELECT *
+            FROM members
+            WHERE id NOT IN (SELECT
+                            member_id
+                            FROM bookings
+                            WHERE class_id = %s)
+            """
+    values = [gym_class.id]
+    results = run_sql(sql, values)
+    if results:
+        members = member_repo.results_parser(results)
+        return members
