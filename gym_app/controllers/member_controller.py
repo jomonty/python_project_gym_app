@@ -1,7 +1,10 @@
 from flask import render_template, redirect, request
 from flask import Blueprint
+
 from models.member import Member
+
 import repositories.member_repo as member_repo
+import repositories.admin_repo as admin_repo
 
 members_blueprint = Blueprint('members', __name__)
 
@@ -16,7 +19,7 @@ def all_members():
 @members_blueprint.route('/members/<int:id>', methods=['GET'])
 def one_member(id):
     member = member_repo.select(id)
-    classes = member_repo.get_all_booked_classes(member.id)
+    classes = admin_repo.get_all_booked_classes(member.id)
     return render_template('members/show.html', member = member, classes = classes)
 
 # CREATE - GET - Show form

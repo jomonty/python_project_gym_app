@@ -1,10 +1,13 @@
 from datetime import date, time
 from flask import render_template, redirect, request
 from flask import Blueprint
+
 from models.booking import Booking
+
 import repositories.booking_repo as booking_repo
 import repositories.gym_class_repo as gym_class_repo
 import repositories.member_repo as member_repo
+import repositories.admin_repo as admin_repo
 
 bookings_blueprint = Blueprint('bookings', __name__)
 
@@ -32,13 +35,13 @@ def new_booking_class(class_name):
     gym_classes = gym_class_repo.select_all_upcoming_by_name(class_name)
     gym_class_status = {}
     for gym_class in gym_classes:
-        gym_class_status[gym_class.id] = booking_repo.is_class_full(gym_class)
+        gym_class_status[gym_class.id] = admin_repo.is_class_full(gym_class)
     return render_template('bookings/new_by_class.html', gym_classes = gym_classes, class_name = class_name, gym_class_status = gym_class_status)
     
 @bookings_blueprint.route('/bookings/new/<int:id>', methods=['GET'])
 def new_booking_member(id):
     gym_class = gym_class_repo.select(id)
-    members = booking_repo.select_members_for_booking(gym_class)
+    members = admin_repo.select_members_for_booking(gym_class)
     return render_template('bookings/new_by_member.html', gym_class = gym_class, members = members)
 
 @bookings_blueprint.route('/bookings/new', methods=['POST'])

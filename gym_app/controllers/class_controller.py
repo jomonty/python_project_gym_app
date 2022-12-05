@@ -1,9 +1,13 @@
 from datetime import date, time
 from flask import render_template, redirect, request
 from flask import Blueprint
+
 from models.gym_class import GymClass
+
 import repositories.gym_class_repo as gym_class_repo
 import repositories.booking_repo as booking_repo
+import repositories.admin_repo as admin_repo
+
 from db.run_sql import run_sql
 
 classes_blueprint = Blueprint('classes', __name__)
@@ -44,8 +48,8 @@ def all_classes():
 @classes_blueprint.route('/classes/<int:id>', methods=['GET'])
 def one_class(id):
     gym_class = gym_class_repo.select(id)
-    bookings = booking_repo.select_all_by_class(gym_class)
-    class_full = booking_repo.is_class_full(gym_class)
+    bookings = admin_repo.select_all_by_class(gym_class)
+    class_full = admin_repo.is_class_full(gym_class)
     return render_template('classes/show.html', gym_class=gym_class, bookings=bookings, class_full=class_full)
 
 # CREATE - GET - Show form

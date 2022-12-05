@@ -38,18 +38,6 @@ def select_all() -> list[Booking]:
     results = run_sql(sql)
     return result_parser(results)
 
-
-# SELECT ALL BOOKINGS FOR CLASS
-def select_all_by_class(gym_class: GymClass) -> list[Booking]:
-    sql = """
-            SELECT *
-            FROM bookings
-            WHERE class_id = %s
-            """
-    values = [gym_class.id]
-    results = run_sql(sql, values)
-    return result_parser(results)
-
 # SAVE ONE
 def save(booking: Booking) -> Booking:
     sql = """
@@ -92,34 +80,3 @@ def update(booking: Booking) -> None:
             """
     values = [booking.gym_class.id, booking.member.id]
     run_sql(sql, values)
-    
-# IS CLASS FULL
-def is_class_full(gym_class: GymClass) -> bool:
-    sql = """
-            SELECT count(*) count_booked
-            FROM bookings b
-            WHERE b.class_id = %s
-            """
-    values = [gym_class.id]
-    results = run_sql(sql, values)
-    if results:
-        count_booked = results[0]['count_booked']
-        if count_booked < gym_class.capacity:
-            return False
-    return True
-
-# SELECT ALL ACTIVE MEMBERS NOT BOOKED ON CLASS
-def select_members_for_booking(gym_class: GymClass) -> list[Member]:
-    sql = """
-            SELECT *
-            FROM members
-            WHERE id NOT IN (SELECT
-                            member_id
-                            FROM bookings
-                            WHERE class_id = %s)
-            """
-    values = [gym_class.id]
-    results = run_sql(sql, values)
-    if results:
-        members = member_repo.results_parser(results)
-        return members

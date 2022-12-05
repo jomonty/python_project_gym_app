@@ -147,25 +147,3 @@ def update(gym_class: GymClass) -> None:
               gym_class.is_active, 
               gym_class.id]
     run_sql(sql, values)
-
-# Return all members booked onto a gym_class
-def get_all_booked_members(id: int) -> list[Member]:
-    sql = """
-            SELECT m.*
-            FROM bookings b
-            INNER JOIN members m
-            ON b.member_id = m.id
-            WHERE b.class_id = %s
-            """
-    values = [id]
-    results = run_sql(sql, values)
-    members = []
-    for row in results:
-        first_name = row['first_name']
-        last_name = row['last_name']
-        is_premium = row['is_premium']
-        is_active = row['is_active']
-        id = row['id']
-        member = Member(first_name, last_name, is_premium, is_active, id)
-        members.append(member)
-    return members
