@@ -41,8 +41,13 @@ def new_booking_class(class_name):
 @bookings_blueprint.route('/bookings/new/<int:id>', methods=['GET'])
 def new_booking_member(id):
     gym_class = gym_class_repo.select(id)
+    booked_members = admin_repo.get_all_booked_members(id)
     members = admin_repo.select_members_for_booking(gym_class)
-    return render_template('bookings/new_by_member.html', gym_class = gym_class, members = members)
+    if gym_class.is_peak:
+        for index, member in enumerate(members):
+            if not member.is_premium:
+                members.pop(index)
+    return render_template('bookings/new_by_member.html', gym_class=gym_class, members=members, booked_members=booked_members)
 
 @bookings_blueprint.route('/bookings/new', methods=['POST'])
 def new_booking_save():

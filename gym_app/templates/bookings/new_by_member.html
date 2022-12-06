@@ -29,5 +29,19 @@
                 <button type="submit">Select</button>
             </fieldset>
         </form>
+        <section class="members-main">
+            <header>
+                <h2>Booked Members</h2>
+            </header>
+            {% for member in booked_members %}
+                <section class="card-member">
+                    <div>
+                        <p>Name: <a href="/members/{{ member.id }}">{{ member.get_full_name() }}</a></p>
+                        <p>Premium? {{ member.is_premium }}</p>
+                        <p>Active? {{ member.is_active }}</p>
+                    </div>
+                </section>
+            {% endfor %}
+        </section>
     </main>
 {% endblock %}

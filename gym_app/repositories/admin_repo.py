@@ -35,7 +35,7 @@ def get_all_booked_members(id: int) -> list[Member]:
             """
     values = [id]
     results = run_sql(sql, values)
-    members = member_repo.results_parser(members)
+    members = member_repo.results_parser(results)
     return members
 
 # IS CLASS FULL
