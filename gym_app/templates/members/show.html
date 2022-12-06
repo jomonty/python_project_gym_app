@@ -5,11 +5,13 @@
 {% endblock %}
 
 {% block body_main_content %}
-    <header class="members-header">
+    <header class="member-header">
         <h2>Member Detail</h2>
-        <a href="/members">Show All</a>
+        <nav class="member-header-nav">
+            <a href="/members" class="sub-nav-link">Show All</a>
+        </nav>
     </header>
-    <main class="members-main">
+    <main class="member-main">
         <section class="card-member">
             <p>Name: {{ member.get_full_name() }}</p>
             <p>Premium? {{ member.is_premium }}</p>

@@ -1,13 +1,17 @@
 .button {
     border: none;
     color: white;
-    padding: 10px 20px;
+    padding: 0.4rem 0.6rem;
     text-align: center;
     text-decoration: none;
     /* display: inline-block; */
     font-size: 16px;
     border-radius: 0.3em;
-  }
+}
+
+.member-button {
+    font-size: 14px;
+}
 
 .button-post {
     background-color: blue;
@@ -25,4 +29,11 @@
 .button-disabled {
     opacity: 0.6;
     cursor: not-allowed;
-  }
+}
+
+.button-set-active {
+    background-color: red;
+}
+.button-set-inactive {
+    background-color: green;
+}

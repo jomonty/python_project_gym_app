@@ -5,36 +5,47 @@
 {% endblock %}
 
 {% block body_main_content %}
-    <header class="members-header">
+    <header class="member-header">
         <h2>{{ header }}</h2>
         <nav class="member-header-nav">
-            <a href="/members">All</a>
-            <a href="/members/active">Active</a>
-            <a href="/members/inactive">Inactive</a>
+            <a href="/members" class="sub-nav-link">All</a>
+            <a href="/members/active" class="sub-nav-link">Active</a>
+            <a href="/members/inactive" class="sub-nav-link">Inactive</a>
+            <a href="/members/new" class="sub-nav-link">Create New Member</a>
         </nav>
-        <a href="/members/new">Create New Member</a>
     </header>
-    <main class="members-main">
+    <main class="member-main">
         {% for member in members %}
             <section class="card-member">
                 <div>
-                    <p>Name: <a href="/members/{{ member.id }}">{{ member.get_full_name() }}</a></p>
-                    <p>Premium? {{ member.is_premium }}</p>
-                    <p>Active? {{ member.is_active }}</p>
+                    <p>
+                        <a href="/members/{{ member.id }}" class="inline-link">
+                            {{ member.get_full_name() }}
+                        </a>
+                    </p>
+                    {% if member.is_premium %}
+                        <p>Premium &#127775;</p>
+                    {% else %}
+                        <p>Standard</p>
+                    {% endif %}
                 </div>
                 <div class="member-show-buttons">
-                    <button>
-                        <a href="/members/{{ member.id }}/edit">Edit</a>
+                    <button class="button member-button">
+                        <a href="/members/{{ member.id }}/edit" class="invisi-link">Edit</a>
                     </button>
-                    <button>
-                        <a href="/members/{{ member.id }}/toggle">
-                            {% if member.is_active %}
-                                Set Inactive
-                            {% else %}
-                                Set Active
-                            {% endif %}
-                        </a>
-                    </button>
+                    {% if member.is_active %}
+                        <button class="button member-button button-set-inactive">
+                            <a href="/members/{{ member.id }}/toggle" class="invisi-link">
+                                Active
+                            </a>
+                        </button>
+                    {% else %}
+                        <button class="button member-button button-set-active">
+                            <a href="/members/{{ member.id }}/toggle" class="invisi-link">
+                                Inactive
+                            </a>
+                        </button>
+                    {% endif %}
                 </div>
             </section>
         {% endfor %}

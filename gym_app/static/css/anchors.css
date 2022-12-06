@@ -19,3 +19,10 @@
 .invisi-link:hove {
     text-decoration: none;
 }
+
+.inline-link {
+    text-decoration: none;
+}
+.inline-link:hover {
+    text-decoration: none;
+}

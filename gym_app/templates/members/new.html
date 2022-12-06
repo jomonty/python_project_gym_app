@@ -5,10 +5,13 @@
 {% endblock %}
 
 {% block body_main_content %}
-    <header class="members-header">
+    <header class="member-header">
         <h2>Create New Member</h2>
+        <nav class="member-header-nav">
+            <a href="/members" class="sub-nav-link">All Members</a>
+        </nav>
     </header>
-    <main class="members-main">
+    <main class="member-main">
         <form action="/members/new" method="post">
             <div class="label-input-pair">
                 <label for ="first_name">First Name: </label>
