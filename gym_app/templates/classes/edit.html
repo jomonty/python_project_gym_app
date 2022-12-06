@@ -9,7 +9,7 @@
         <h2>Edit Class</h2>
     </header>
     <main class="classes-main">
-        <form action="/classes/new" method="post">
+        <form action="/classes/edit" method="post" class="class-form">
             <div class="label-input-pair">
                 <label for="name">Name: </label>
                 <input type="text" 
@@ -44,6 +44,7 @@
                         id="active" 
                         name="active" {% if gym_class.is_active %}checked{% endif %}>
             </div>
+            <input type="hidden" name="id" value="{{ gym_class.id }}">
             <button type="submit">Save</button>
         </form>
     </main>

@@ -20,6 +20,9 @@
 .button-edit {
     background-color: gold;
 }
+.button-book {
+    background-color: coral;
+}
 .button-delete {
     background-color: grey;
 }

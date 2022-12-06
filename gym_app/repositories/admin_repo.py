@@ -89,7 +89,7 @@ def select_premium_members_for_booking(gym_class: GymClass) -> list[Member]:
 # SELECT ALL BOOKINGS FOR CLASS
 def select_all_by_class(gym_class: GymClass) -> list[Booking]:
     sql = """
-            SELECT *
+            SELECT b.*
             FROM bookings b
             LEFT JOIN members m on b.member_id = m.id
             WHERE class_id = %s

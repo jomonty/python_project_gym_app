@@ -22,12 +22,24 @@
     column-gap: 2em;
     row-gap: 2em;
 }
+.member-main-show {
+    width: 90%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-around;
+    align-items: center;
+    column-gap: 0.1em;
+    row-gap: 2em;
+}
 .card-member {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    border: 1px solid black;
+    border: 1px solid #0e7490;
+    border-radius: 1em;
+    background-color: ghostwhite;
     padding: 0 1.5em 0 1.5em;
     width: 15em;
     height: 10em;
@@ -47,4 +59,15 @@
     display: flex;
     flex-direction: column;
     row-gap: 0.8em;
+}
+
+.member-form {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    row-gap: 1em;
+    border: 1px solid #0e7490;
+    padding: 1em;
+    border-radius: 1em;
+    background-color: ghostwhite;
 }

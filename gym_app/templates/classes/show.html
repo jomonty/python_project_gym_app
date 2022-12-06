@@ -8,58 +8,95 @@
     <header class="classes-header">
         <h2>Class Detail</h2>
         <nav class="classes-header-nav">
-            <a href="/classes">Upcoming</a>
-            <a href="/classes/all">All</a>
-            <a href="/classes/historical">Historical</a>
-            <a href="/classes/inactive">Inactive</a>
+            <a href="/classes" class="sub-nav-link">Upcoming</a>
+            <a href="/classes/all" class="sub-nav-link">All</a>
+            <a href="/classes/historical" class="sub-nav-link">Historical</a>
+            <a href="/classes/inactive" class="sub-nav-link">Inactive</a>
         </nav>
     </header>
     <main class="classes-main">
         <section class="card-class">
-            <p>Name: {{ gym_class.name }}</p>
-            <p>Date: {{ gym_class.class_date }}</p>
-            <p>Time: {{ gym_class.class_time }}</p>
-            <p>Capacity: {{ gym_class.capacity }}</p>
-            <p>Active? {{ gym_class.is_active }}</p>
-            <p>Peak? {{ gym_class.is_peak }}</p>
-            <button>
-                <a href="/classes/{{ gym_class.id }}/edit">Edit</a>
-            </button>
-            <button>
-                <a href="/classes/{{ gym_class.id }}/delete">Delete</a>
-            </button>
-            <button>
-                <a href="/classes/{{ gym_class.id }}/toggle">
-                    {% if gym_class.is_active %}
-                        Set Inactive
-                    {% else %}
-                        Set Active
-                    {% endif %}
-                </a>
-            </button>
-            {% if class_full %}
-                <button>Class Full</button>
-            {% elif not gym_class.is_active %}
-                <button>Class Inactive</button>
-            {% else %}
-                <button><a href="/bookings/new/{{ gym_class.id }}">Book</a></button>
-            {% endif %}
-        </section>
-        <section class="members-main">
-            {% for booking in bookings %}
-            <section class="card-member">
-                <div>
-                    <p>Name: <a href="/members/{{ booking.member.id }}">{{ booking.member.get_full_name() }}</a></p>
-                    <p>Premium? {{ booking.member.is_premium }}</p>
-                    <p>Active? {{ booking.member.is_active }}</p>
-                </div>
-                <div class="member-show-buttons">
-                    <button>
-                        <a href="/bookings/{{ booking.id }}/delete">Remove</a>
+            <div class="card-class-text">
+                <p>
+                    <a href="/classes/{{ gym_class.id }}" class="inline-link">
+                        {{ gym_class.name }} - 
+                        {{ gym_class.class_date.strftime('%a %-d %b %Y') }} - 
+                        {{ gym_class.class_time.strftime('%I:%M %p') }}
+                    </a>
+                </p>
+                <p>Capacity: {{ gym_class.capacity }}</p>
+                {% if gym_class.is_peak %}
+                    <p>Peak</p>
+                {% else %}
+                    <p>OffPeak</p>
+                {% endif %}
+            </div>
+            <div class="card-class-buttons-4">
+                {% if gym_class.is_active %}
+                    <a href="/classes/{{ gym_class.id }}/toggle" class="invisi-link">
+                        <button class="button class-button button-set-inactive">
+                            Active
+                        </button>
+                    </a>
+                {% else %}
+                    <a href="/classes/{{ gym_class.id }}/toggle" class="invisi-link">
+                        <button class="button class-button button-set-active">
+                            Inactive
+                        </button> 
+                    </a>
+                {% endif %}
+                <button class="button button-edit">
+                    <a href="/classes/{{ gym_class.id }}/edit" class="invisi-link">
+                        Edit
+                    </a>
+                </button>
+                <button class="button button-delete">
+                    <a href="/classes/{{ gym_class.id }}/delete" class="invisi-link">
+                        Delete
+                    </a>
+                </button>
+                {% if class_full %}
+                    <button class="button button-disabled">Class Full</button>
+                {% elif not gym_class.is_active %}
+                    <button class="button button-disabled">Class Inactive</button>
+                {% else %}
+                    <button class="button button-book">
+                        <a href="/bookings/new/{{ gym_class.id }}" class="invisi-link">
+                            Book
+                        </a>
                     </button>
-                </div>
-            </section>
-            {% endfor %}
+                {% endif %}
+            </div>
+        </section>
+        <section class="member-main">
+            {% if bookings %}
+                {% for booking in bookings %}
+                <section class="card-member">
+                    <div>
+                        <p>
+                            <a href="/members/{{ booking.member.id }}" class="inline-link">
+                                {{ booking.member.get_full_name() }}
+                            </a>
+                        </p>
+                        {% if booking.member.is_premium %}
+                            <p>Premium &#127775;</p>
+                        {% else %}
+                            <p>Standard</p>
+                        {% endif %}
+                    </div>
+                    <div class="member-show-buttons">
+                        <button class="button button-delete">
+                            <a href="/bookings/{{ booking.id }}/delete" class="invisi-link">
+                                Remove
+                            </a>
+                        </button>
+                    </div>
+                </section>
+                {% endfor %}
+            {% endif %}
         </section>
     </main>
 {% endblock %}
+
+
+

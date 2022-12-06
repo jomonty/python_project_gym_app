@@ -11,7 +11,7 @@
             <a href="/members" class="sub-nav-link">Show All</a>
         </nav>
     </header>
-    <main class="member-main">
+    <main class="member-main-show">
         <section class="card-member">
             <div class="card-member-text">
                 <p>{{ member.get_full_name() }}</p>
@@ -49,20 +49,42 @@
         </section>
         <section class="classes-main">
             {% for class in classes %}
-            <section class="card-class">
-                <p>Name: <a href="/classes/{{ class.id }}">{{ class.name }}</a></p>
-                <p>Date: {{ class.class_date }}</p>
-                <p>Time: {{ class.class_time }}</p>
-                <p>Capacity: {{ class.capacity }}</p>
-                <p>Active? {{ class.is_active }}</p>
-                <div class="class-show-buttons">
-                    <button>
-                        <!-- <a href="">Unbook</a> -->
-                        Unbook
-                    </button>
-                </div>
-            </section>
-        {% endfor %}
+                <section class="card-class">
+                    <div class="card-class-text">
+                        <p>
+                            <a href="/classes/{{ class.id }}" class="inline-link">
+                                {{ class.name }} - 
+                                {{ class.class_date.strftime('%a %-d %b %Y') }} - 
+                                {{ class.class_time.strftime('%I:%M %p') }}
+                            </a>
+                        </p>
+                        <p>Capacity: {{ class.capacity }}</p>
+                        {% if class.is_peak %}
+                            <p>Peak</p>
+                        {% else %}
+                            <p>OffPeak</p>
+                        {% endif %}
+                    </div>
+                    <div class="card-class-buttons">
+                        {% if class.is_active %}
+                            <a href="/classes/{{ class.id }}/toggle" class="invisi-link">
+                                <button class="button class-button button-set-inactive">
+                                    Active
+                                </button>
+                            </a>
+                        {% else %}
+                            <a href="/members/{{ member.id }}/toggle" class="invisi-link">
+                                <button class="button class-button button-set-active">
+                                    Inactive
+                                </button>        
+                            </a>
+                        {% endif %}
+                        <button class="button button-edit">
+                            <a href="/classes/{{ class.id }}/edit">Edit</a>
+                        </button>
+                    </div>
+                </section>
+            {% endfor %}
         </section>
     </main>
 {% endblock %}

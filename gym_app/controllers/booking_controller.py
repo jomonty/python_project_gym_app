@@ -20,6 +20,7 @@ def all_bookings():
 # DELETE - GET - Process request
 @bookings_blueprint.route('/bookings/<int:id>/delete', methods=['GET'])
 def one_booking_delete(id):
+    print(id)
     booking_repo.delete(id)
     return redirect(request.referrer)
 

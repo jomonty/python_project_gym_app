@@ -8,34 +8,47 @@
     <header class="classes-header">
         <h2>{{ header }}</h2>
         <nav class="classes-header-nav">
-            <a href="/classes">Upcoming</a>
-            <a href="/classes/all">All</a>
-            <a href="/classes/historical">Historical</a>
-            <a href="/classes/inactive">Inactive</a>
+            <a href="/classes" class="sub-nav-link">Upcoming</a>
+            <a href="/classes/all" class="sub-nav-link">All</a>
+            <a href="/classes/historical" class="sub-nav-link">Historical</a>
+            <a href="/classes/inactive" class="sub-nav-link">Inactive</a>
+            <a href="/classes/new" class="sub-nav-link">Create New Class</a>
         </nav>
-        <a href="/classes/new">Create New Class</a>
     </header>
     <main class="classes-main">
         {% for class in classes %}
             <section class="card-class">
-                <p>Name: <a href="/classes/{{ class.id }}">{{ class.name }}</a></p>
-                <p>Date: {{ class.class_date }}</p>
-                <p>Time: {{ class.class_time }}</p>
-                <p>Capacity: {{ class.capacity }}</p>
-                <p>Active? {{ class.is_active }}</p>
-                <p>Peak? {{ class.is_peak }}</p>
-                <div class="class-show-buttons">
-                    <button>
-                        <a href="/classes/{{ class.id }}/edit">Edit</a>
-                    </button>
-                    <button>
-                        <a href="/classes/{{ class.id }}/toggle">
-                            {% if class.is_active %}
-                                Set Inactive
-                            {% else %}
-                                Set Active
-                            {% endif %}
+                <div class="card-class-text">
+                    <p>
+                        <a href="/classes/{{ class.id }}" class="inline-link">
+                            {{ class.name }} - 
+                            {{ class.class_date.strftime('%a %-d %b %Y') }} - 
+                            {{ class.class_time.strftime('%I:%M %p') }}
                         </a>
+                    </p>
+                    <p>Capacity: {{ class.capacity }}</p>
+                    {% if class.is_peak %}
+                        <p>Peak</p>
+                    {% else %}
+                        <p>OffPeak</p>
+                    {% endif %}
+                </div>
+                <div class="card-class-buttons">
+                    {% if class.is_active %}
+                        <a href="/classes/{{ class.id }}/toggle" class="invisi-link">
+                            <button class="button class-button button-set-inactive">
+                                Active
+                            </button>
+                        </a>
+                    {% else %}
+                        <a href="/classes/{{ class.id }}/toggle" class="invisi-link">
+                            <button class="button class-button button-set-active">
+                                Inactive
+                            </button>        
+                        </a>
+                    {% endif %}
+                    <button class="button button-edit">
+                        <a href="/classes/{{ class.id }}/edit">Edit</a>
                     </button>
                 </div>
             </section>

@@ -75,16 +75,17 @@ def one_class_edit_show(id):
     return render_template('classes/edit.html', gym_class=gym_class)
 
 # EDIT - POST - Process Request
-@classes_blueprint.route('/classes/<int:id>/edit', methods=['POST'])
-def one_class_edit_save(id):
+@classes_blueprint.route('/classes/edit', methods=['POST'])
+def one_class_edit_save():
     form_data = request.form
-    name = form_data=['name']
+    name = form_data['name']
     class_date = date.fromisoformat(form_data['class_date'])
     class_time = time.fromisoformat(form_data['class_time'])
     capacity = int(form_data['capacity'])
     is_active = 'active' in form_data
+    id = form_data['id']
     gym_class = GymClass(name, class_date, class_time, capacity, is_active, id)
-    gym_class_repo.save(gym_class)
+    gym_class_repo.update(gym_class)
     return redirect(f'/classes/{id}')
 
 # DELETE - GET - Process Request
