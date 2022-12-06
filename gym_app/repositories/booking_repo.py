@@ -8,14 +8,17 @@ import repositories.gym_class_repo as gym_class_repo
 # RESULT PARSER
 def result_parser(results):
     bookings = []
-    for row in results:
-        id = row['id']
-        member = member_repo.select(row['member_id'])
-        gym_class = gym_class_repo.select(row['class_id'])
-        create_date = row['create_date']
-        booking = Booking(gym_class, member, create_date, id)
-        bookings.append(booking)
-    return bookings
+    if results == None or len(results) == 0:
+        return bookings
+    else:
+        for row in results:
+            id = row['id']
+            member = member_repo.select(row['member_id'])
+            gym_class = gym_class_repo.select(row['class_id'])
+            create_date = row['create_date']
+            booking = Booking(gym_class, member, create_date, id)
+            bookings.append(booking)
+        return bookings
 
 # SELECT ONE
 def select(id: int) -> Booking:
@@ -26,8 +29,9 @@ def select(id: int) -> Booking:
             """
     values = [id]
     results = run_sql(sql, values)
-    if results:
-        return result_parser(results)[0]
+    bookings = result_parser(results)
+    if len(bookings) >= 1:
+        return bookings[0]
 
 # SELECT ALL
 def select_all() -> list[Booking]:
@@ -49,8 +53,9 @@ def save(booking: Booking) -> Booking:
             """
     values = [booking.gym_class.id, booking.member.id]
     results = run_sql(sql, values)
-    if results:
-        booking = result_parser(results)[0]
+    bookings = result_parser(results)
+    if len(bookings) >= 1:
+        booking = bookings[0]
     return booking
 
 # DELETE ONE

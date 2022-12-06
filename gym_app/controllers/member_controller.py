@@ -8,12 +8,27 @@ import repositories.admin_repo as admin_repo
 
 members_blueprint = Blueprint('members', __name__)
 
-# READ - Show All
+# READ - GET - Show All
 @members_blueprint.route('/members', methods=['GET'])
 def all_members():
     members = member_repo.select_all()
-    members.sort(key=lambda x: x.last_name)
-    return render_template('members/index.html', members = members)
+    header = 'All Members'
+    # members.sort(key=lambda x: x.last_name)
+    return render_template('members/index.html', members=members, header=header)
+
+# READ - GET - Show All Active
+@members_blueprint.route('/members/active', methods=['GET'])
+def all_active_members():
+    members = member_repo.select_all_active()
+    header = 'All Active Members'
+    return render_template('members/index.html', members=members, header=header)
+
+# READ - GET - Show All Inactive
+@members_blueprint.route('/members/inactive', methods=['GET'])
+def all_inactive_members():
+    members = member_repo.select_all_active(active=False)
+    header = 'All Inactive Members'
+    return render_template('members/index.html', members=members, header=header)
 
 # READ - Show One
 @members_blueprint.route('/members/<int:id>', methods=['GET'])

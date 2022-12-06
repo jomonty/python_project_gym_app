@@ -38,13 +38,11 @@
                 </a>
             </button>
             {% if class_full %}
-                <button>
-                    Class Full
-                </button>
+                <button>Class Full</button>
+            {% elif not gym_class.is_active %}
+                <button>Class Inactive</button>
             {% else %}
-                <button>
-                    <a href="/bookings/new/{{ gym_class.id }}">Book</a>
-                </button>
+                <button><a href="/bookings/new/{{ gym_class.id }}">Book</a></button>
             {% endif %}
         </section>
         <section class="members-main">

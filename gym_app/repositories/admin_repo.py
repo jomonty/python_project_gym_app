@@ -20,11 +20,10 @@ def get_all_booked_classes(id: int) -> list[GymClass]:
             """
     values = [id]
     results = run_sql(sql, values)
-    if results:
-        gym_classes = gym_class_repo.results_parser(results)
-        return gym_classes
+    gym_classes = gym_class_repo.results_parser(results)
+    return gym_classes
 
-# Return all members booked onto a gym_class
+# SELECT ALL MEMBERS BOOKED ON A GYM CLASS
 def get_all_booked_members(id: int) -> list[Member]:
     sql = """
             SELECT m.*
@@ -54,20 +53,34 @@ def is_class_full(gym_class: GymClass) -> bool:
     return True
 
 # SELECT ALL ACTIVE MEMBERS NOT BOOKED ON CLASS
-def select_members_for_booking(gym_class: GymClass) -> list[Member]:
+def select_all_members_for_booking(gym_class: GymClass) -> list[Member]:
     sql = """
-            SELECT *
-            FROM members
-            WHERE id NOT IN (SELECT
-                            member_id
-                            FROM bookings
-                            WHERE class_id = %s)
+            SELECT m.*
+            FROM members m
+            LEFT JOIN
+            (SELECT * FROM bookings WHERE class_id = %s) b
+            ON m.id = b.member_id
+            WHERE b.id is null
             """
     values = [gym_class.id]
     results = run_sql(sql, values)
-    if results:
-        members = member_repo.results_parser(results)
-        return members
+    members = member_repo.results_parser(results)
+    return members
+
+# SELECT ALL ACTIVE, PREMIUM MEMBERS NOT BOOKED ON CLASS
+def select_premium_members_for_booking(gym_class: GymClass) -> list[Member]:
+    sql = """
+            SELECT m.*
+            FROM members m
+            LEFT JOIN 
+            (SELECT * FROM bookings WHERE class_id = %s) b
+            ON m.id = b.member_id
+            WHERE m.is_premium = true AND b.id is null
+            """
+    values = [gym_class.id]
+    results = run_sql(sql, values)
+    members = member_repo.results_parser(results)
+    return members
     
 # SELECT ALL BOOKINGS FOR CLASS
 def select_all_by_class(gym_class: GymClass) -> list[Booking]:
@@ -78,4 +91,5 @@ def select_all_by_class(gym_class: GymClass) -> list[Booking]:
             """
     values = [gym_class.id]
     results = run_sql(sql, values)
-    return booking_repo.result_parser(results)
+    bookings = booking_repo.result_parser(results)
+    return bookings

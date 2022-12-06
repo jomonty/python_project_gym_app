@@ -5,17 +5,19 @@ from models.member import Member
 
 def results_parser(results: dict) -> list[GymClass]:
     gym_classes = []
-    for row in results:
-        name = row['name']
-        class_date = row['class_date']
-        class_time = row['class_time']
-        capacity = row['capacity']
-        is_active = row['is_active']
-        # is_peak = row['is_peak']
-        id = row['id']
-        gym_class = GymClass(name, class_date, class_time, capacity, is_active, id)
-        gym_classes.append(gym_class)
-    return gym_classes
+    if results == None or len(results) == 0:
+        return gym_classes
+    else:
+        for row in results:
+            name = row['name']
+            class_date = row['class_date']
+            class_time = row['class_time']
+            capacity = row['capacity']
+            is_active = row['is_active']
+            id = row['id']
+            gym_class = GymClass(name, class_date, class_time, capacity, is_active, id)
+            gym_classes.append(gym_class)
+        return gym_classes
         
 # SELECT ONE
 def select(id: int) -> GymClass:
@@ -27,7 +29,7 @@ def select(id: int) -> GymClass:
     values = [id]
     results = run_sql(sql, values)
     gym_classes = results_parser(results)
-    if gym_classes:
+    if gym_classes[0]:
         return gym_classes[0]
 
 # SELECT ALL
@@ -114,8 +116,9 @@ def save(gym_class: GymClass) -> GymClass:
               gym_class.is_active,
               gym_class.is_peak]
     results = run_sql(sql, values)
-    if results:
-        gym_class.id = results_parser(results)[0].id
+    gym_classes = results_parser(results)
+    if len(gym_classes) >= 1:
+        gym_class.id = gym_classes[0].id
     return gym_class
 
 # DELETE ONE

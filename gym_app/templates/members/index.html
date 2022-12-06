@@ -6,7 +6,12 @@
 
 {% block body_main_content %}
     <header class="members-header">
-        <h2>All Members</h2>
+        <h2>{{ header }}</h2>
+        <nav class="member-header-nav">
+            <a href="/members">All</a>
+            <a href="/members/active">Active</a>
+            <a href="/members/inactive">Inactive</a>
+        </nav>
         <a href="/members/new">Create New Member</a>
     </header>
     <main class="members-main">

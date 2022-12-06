@@ -6,15 +6,18 @@ from models.gym_class import GymClass
 # RESULTS PARSER
 def results_parser(results):
     members = []
-    for row in results:
-        first_name = row['first_name']
-        last_name = row['last_name']
-        is_premium = row['is_premium']
-        is_active = row['is_active']
-        id = row['id']
-        member = Member(first_name, last_name, is_premium, is_active, id)
-        members.append(member)
-    return members
+    if results == None or len(results) == 0:
+        return members
+    else:
+        for row in results:
+            first_name = row['first_name']
+            last_name = row['last_name']
+            is_premium = row['is_premium']
+            is_active = row['is_active']
+            id = row['id']
+            member = Member(first_name, last_name, is_premium, is_active, id)
+            members.append(member)
+        return members
 
 # SELECT ONE
 def select(id: int) -> Member:
@@ -25,26 +28,30 @@ def select(id: int) -> Member:
             """
     values = [id]
     results = run_sql(sql, values)
-    if results:
-        return results_parser(results)[0]
+    members = results_parser(results)
+    if len(members) >= 1:
+        return members[0]
 
 # SELECT ALL
 def select_all() -> list[Member]:
     sql = """
             SELECT *
             FROM members
+            ORDER BY last_name, first_name
             """
     results = run_sql(sql)
     return results_parser(results)
 
 # SELECT ALL ACTIVE
-def select_all_active() -> list[Member]:
+def select_all_active(active: bool = True) -> list[Member]:
     sql = """
             SELECT *
             FROM members
-            WHERE is_active = true
+            WHERE is_active = %s
+            ORDER BY last_name, first_name
             """
-    results = run_sql(sql)
+    values = [active]
+    results = run_sql(sql, values)
     return results_parser(results)
 
 # SAVE ONE
@@ -58,8 +65,9 @@ def save(member: Member) -> Member:
             """
     values = [member.first_name, member.last_name, member.is_premium, member.is_active]
     results = run_sql(sql, values)
-    if results:
-        member.id = results[0]['id']
+    members = results_parser(results)
+    if len(members) >= 1:
+        member.id = members[0].id
     return member
     
 # DELETE ONE
