@@ -1,4 +1,4 @@
-.base-style {
+.base-body {
     display: grid;
     grid-template-areas:
         'base-header'
@@ -9,7 +9,7 @@
     margin: 0;
     font-family: Montserrat, Heletica, sans-serif;
 }
-.base-style-header {
+.base-body-header {
     grid-area: base-header;
     display: flex;
     justify-content: space-around;
@@ -20,12 +20,17 @@
     column-gap: 1em;
     align-items: flex-end;
 }
-.base-style-main {
+.base-body-main {
     grid-area: base-main;
     background-color: aliceblue;
     padding: 1em 0 2em 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    row-gap: 1.5em;
 }
-.base-style-footer {
+.base-body-footer {
     grid-area: base-footer;
     display: flex;
     justify-content: space-around;
@@ -35,10 +40,4 @@
     flex-direction: column;
     row-gap: 0.5em;
     padding-top: 1em;
-}
-.nav-link {
-    text-decoration: none;
-}
-.nav-link:hover {
-    text-decoration: underline;
 }

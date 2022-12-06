@@ -1,0 +1,28 @@
+.button {
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    /* display: inline-block; */
+    font-size: 16px;
+    border-radius: 0.3em;
+  }
+
+.button-post {
+    background-color: blue;
+    align-self: flex-end;
+    justify-self: center;
+    margin: 0.5em;
+}
+
+.button-back {
+    background-color: antiquewhite;
+    align-self: flex-end;
+    justify-self: center;
+}
+
+.button-disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }

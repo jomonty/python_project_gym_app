@@ -1,0 +1,21 @@
+.main-nav-link {
+    text-decoration: none;
+}
+.main-nav-link:hover {
+    text-decoration: underline;
+}
+
+.sub-nav-link {
+    text-decoration: none;
+}
+.sub-nav-link:hover {
+    text-decoration: underline;
+}
+
+.invisi-link {
+    text-decoration: none;
+    color: black;
+}
+.invisi-link:hove {
+    text-decoration: none;
+}
