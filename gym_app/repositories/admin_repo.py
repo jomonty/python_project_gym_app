@@ -20,8 +20,9 @@ def get_all_booked_classes(id: int) -> list[GymClass]:
             """
     values = [id]
     results = run_sql(sql, values)
-    gym_classes = gym_class_repo.results_parser(results)
-    return gym_classes
+    if results:
+        gym_classes = gym_class_repo.results_parser(results)
+        return gym_classes
 
 # Return all members booked onto a gym_class
 def get_all_booked_members(id: int) -> list[Member]:

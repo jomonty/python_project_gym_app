@@ -25,7 +25,8 @@ def select(id: int) -> Member:
             """
     values = [id]
     results = run_sql(sql, values)
-    return results_parser(results)[0]
+    if results:
+        return results_parser(results)[0]
 
 # SELECT ALL
 def select_all() -> list[Member]:

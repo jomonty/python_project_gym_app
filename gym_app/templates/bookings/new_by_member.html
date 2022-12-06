@@ -11,7 +11,9 @@
     <main class="booking-main">
         <form action="/bookings/new" method="post">
             <fieldset>
-                <legend>Member Selection - {{ gym_class.name }} - {{ gym_class.class_date }} - {{ gym_class.class_time }}</legend>
+                <legend>
+                    Member Selection - {{ gym_class.name }} - {{ gym_class.class_date }} - {{ gym_class.class_time }}
+                </legend>
                 {% for member in members %}
                     <div class="label-input-pair">
                         <label for="{{ member.id }}">

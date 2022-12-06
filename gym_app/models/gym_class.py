@@ -7,5 +7,14 @@ class GymClass:
         self.class_time = class_time
         self.capacity = capacity
         self.is_active = is_active
+        self.is_peak = self.set_is_peak()
         self.id = id
+        
+    def set_is_peak(self):
+        if self.class_time >= time(6,0,0) and self.class_time <= time(8,30,0):
+            return True
+        elif self.class_time >= time(17,0,0) and self.class_time <= time(19,0,0):
+            return True
+        else:
+            return False
 

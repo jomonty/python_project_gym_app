@@ -11,6 +11,7 @@ def results_parser(results: dict) -> list[GymClass]:
         class_time = row['class_time']
         capacity = row['capacity']
         is_active = row['is_active']
+        # is_peak = row['is_peak']
         id = row['id']
         gym_class = GymClass(name, class_date, class_time, capacity, is_active, id)
         gym_classes.append(gym_class)
@@ -102,18 +103,19 @@ def select_distinct_classes() -> list[str]:
 def save(gym_class: GymClass) -> GymClass:
     sql = """
             INSERT INTO classes
-            (name, class_date, class_time, capacity, is_active) VALUES
-            (%s, %s, %s, %s, %s)
+            (name, class_date, class_time, capacity, is_active, is_peak) VALUES
+            (%s, %s, %s, %s, %s, %s)
             RETURNING *
             """
     values = [gym_class.name, 
               gym_class.class_date.isoformat(), 
               gym_class.class_time.isoformat(), 
               gym_class.capacity, 
-              gym_class.is_active]
+              gym_class.is_active,
+              gym_class.is_peak]
     results = run_sql(sql, values)
-    result = results[0]
-    gym_class.id = result['id']
+    if results:
+        gym_class.id = results_parser(results)[0].id
     return gym_class
 
 # DELETE ONE
@@ -138,13 +140,14 @@ def delete_all() -> None:
 def update(gym_class: GymClass) -> None:
     sql = """
             UPDATE classes
-            SET (name, class_date, class_time, capacity, is_active) = (%s, %s, %s, %s, %s)
+            SET (name, class_date, class_time, capacity, is_active, is_peak) = (%s, %s, %s, %s, %s, %s)
             WHERE id = %s
             """
     values = [gym_class.name, 
               gym_class.class_date.isoformat(), 
               gym_class.class_time.isoformat(), 
               gym_class.capacity, 
-              gym_class.is_active, 
+              gym_class.is_active,
+              gym_class.is_peak,
               gym_class.id]
     run_sql(sql, values)

@@ -21,6 +21,7 @@
             <p>Time: {{ gym_class.class_time }}</p>
             <p>Capacity: {{ gym_class.capacity }}</p>
             <p>Active? {{ gym_class.is_active }}</p>
+            <p>Peak? {{ gym_class.is_peak }}</p>
             <button>
                 <a href="/classes/{{ gym_class.id }}/edit">Edit</a>
             </button>
@@ -37,14 +38,14 @@
                 </a>
             </button>
             {% if class_full %}
-                    <button>
-                        Class Full
-                    </button>
-                {% else %}
-                    <button>
-                        <a href="/bookings/new/{{ gym_class.id }}">Book</a>
-                    </button>
-                {% endif %}
+                <button>
+                    Class Full
+                </button>
+            {% else %}
+                <button>
+                    <a href="/bookings/new/{{ gym_class.id }}">Book</a>
+                </button>
+            {% endif %}
         </section>
         <section class="members-main">
             {% for booking in bookings %}

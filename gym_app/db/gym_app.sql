@@ -8,7 +8,8 @@ CREATE TABLE classes (
     class_date DATE,
     class_time TIME,
     capacity INT,
-    is_active BOOLEAN
+    is_active BOOLEAN,
+    is_peak BOOLEAN
 );
 
 CREATE TABLE members (
