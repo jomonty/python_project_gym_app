@@ -5,5 +5,35 @@
 {% endblock %}
 
 {% block body_main_content %}
-    This is the homepage.
+    <header>
+        {% if create %}
+            <!-- <h2>Post some news!</h2> -->
+            <form action="/new" method="post" text-align="center">
+                <fieldset>
+                    <legend>Post some news!</legend>
+                    <input type="text-area" name="news_item">
+                    <button type="submit">Post</button>
+                </fieldset>
+            </form>
+        {% else %}
+            <h2>Latest News from the Little Gym</h2>
+            <section class="homepage-news-nav">
+                {% if top_3 %}
+                    <a href="/all_news">Show All</a>
+                {% else %}
+                    <a href="/">Show Top 3</a>
+                {% endif %}
+                <a href="/new">New Post</a>
+            </section>
+        {% endif %}
+    </header>
+    <main class="news-main">
+        {% for news_item in news %}
+            <section class="card-news">
+                <p>Date: {{ news_item.create_date.strftime('%a %-d %B %Y') }}</p>
+                <p>Time: {{ news_item.create_date.strftime('%I:%M') }}</p>
+                <p>Post: {{ news_item.news_item }}</p>
+            </section>
+        {% endfor %}
+    </main>
 {% endblock %}

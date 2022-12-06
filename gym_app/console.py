@@ -4,9 +4,11 @@ from datetime import date, time
 from models.member import Member
 from models.gym_class import GymClass
 from models.booking import Booking
+from models.news import News
 import repositories.member_repo as member_repo
 import repositories.gym_class_repo as gym_class_repo
 import repositories.booking_repo as booking_repo
+import repositories.news_repo as news_repo
 
 booking_repo.delete_all()
 member_repo.delete_all()
@@ -42,5 +44,9 @@ for member in members:
     booking = Booking(gym_class, member)
     booking_repo.save(booking)
     bookings.append(booking)
+    
+    
+news_1 = News('New website coming soon..')
+news_repo.save_one(news_1)
 
 # breakpoint()
