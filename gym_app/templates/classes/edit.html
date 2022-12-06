@@ -45,7 +45,7 @@
                         name="active" {% if gym_class.is_active %}checked{% endif %}>
             </div>
             <input type="hidden" name="id" value="{{ gym_class.id }}">
-            <button type="submit">Save</button>
+            <button type="submit" class="button button-save">Save</button>
         </form>
     </main>
 {% endblock %}

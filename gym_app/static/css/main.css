@@ -8,12 +8,15 @@
     background-color: #0e7490;
     margin: 0;
     font-family: Montserrat, Heletica, sans-serif;
+    margin-bottom: 2em;
+    padding-bottom: 2em;
 }
 .base-body-header {
     grid-area: base-header;
     display: flex;
     justify-content: space-around;
     align-items: center;
+    color: ghostwhite;
 }
 .base-header-nav {
     display: flex;
@@ -29,11 +32,14 @@
     justify-content: center;
     align-items: center;
     row-gap: 1.5em;
+    color: #033542;
 }
 .base-body-footer {
     grid-area: base-footer;
     display: flex;
     justify-content: space-around;
+    margin-top: 1em;
+    color: ghostwhite;
 }
 .base-footer-nav {
     display: flex;
@@ -53,6 +59,10 @@
     height: 2em;
 }
 .label-input-pair > input[type=checkbox] {
+    width: 2em;
+    height: 2em;
+}
+.label-input-pair > input[type=radio] {
     width: 2em;
     height: 2em;
 }

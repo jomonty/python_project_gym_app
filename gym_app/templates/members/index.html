@@ -30,9 +30,6 @@
                     {% endif %}
                 </div>
                 <div class="card-member-buttons">
-                    <button class="button member-button">
-                        <a href="/members/{{ member.id }}/edit" class="invisi-link">Edit</a>
-                    </button>
                     {% if member.is_active %}
                         <a href="/members/{{ member.id }}/toggle" class="invisi-link">
                             <button class="button button-set-inactive">
@@ -46,6 +43,9 @@
                             </button>        
                         </a>
                     {% endif %}
+                    <button class="button member-button">
+                        <a href="/members/{{ member.id }}/edit" class="invisi-link">Edit</a>
+                    </button>
                 </div>
             </section>
         {% endfor %}

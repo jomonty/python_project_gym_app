@@ -1,5 +1,6 @@
 .main-nav-link {
     text-decoration: none;
+    color: ghostwhite;
 }
 .main-nav-link:hover {
     text-decoration: underline;
@@ -7,6 +8,7 @@
 
 .sub-nav-link {
     text-decoration: none;
+    color: #0e7490;
 }
 .sub-nav-link:hover {
     text-decoration: underline;
@@ -14,7 +16,7 @@
 
 .invisi-link {
     text-decoration: none;
-    color: black;
+    color: ghostwhite;
 }
 .invisi-link:hove {
     text-decoration: none;
@@ -22,7 +24,8 @@
 
 .inline-link {
     text-decoration: none;
+    color: #0e7490;
 }
 .inline-link:hover {
-    text-decoration: none;
+    text-decoration: underline;
 }

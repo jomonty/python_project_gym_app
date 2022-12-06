@@ -7,13 +7,17 @@
 {% block body_main_content %}
     <header class="booking-header">
         <h2>Select a class type</h2>
+        <nav class="booking-header-nav">
+            <a href="/bookings" class="sub-nav-link">Show All Bookings</a>
+            <!-- <a href="/bookings/new" class="sub-nav-link">Make New Booking</a> -->
+        </nav>
     </header>
     <main class="booking-main">
         {% for class in class_names %}
             <section class="card-class-type">
                 <p>{{ class }}</p>
-                <button>
-                    <a href="/bookings/new/{{ class }}">Book</a>
+                <button class="button button-book">
+                    <a href="/bookings/new/{{ class }}" class="invisi-link">Book</a>
                 </button>
             </section>
         {% endfor %}

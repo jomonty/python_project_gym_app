@@ -5,40 +5,49 @@
 {% endblock %}
 
 {% block body_main_content %}
-    <header class="bookings-header">
+    <header class="booking-header">
         <h2>All Bookings</h2>
-        <nav class="bookings-header-nav">
-            <a href="/bookings">Show All Bookings</a>
-            <a href="/bookings/new">Make New Booking</a>
+        <nav class="booking-header-nav">
+            <!-- <a href="/bookings" class="sub-nav-link">Show All Bookings</a> -->
+            <a href="/bookings/new" class="sub-nav-link">Make New Booking</a>
         </nav>
     </header>
-    <main class="bookings-main">
+    <main class="booking-main">
         <table>
-            <tr>
+            <tr class="table-header">
                 <th>Class</th>
                 <th>Member Name</th>
                 <th>Booking Timestamp</th>
                 <th></th>
             </tr>
-            {% for booking in bookings %}
-                <tr>
-                    <td>
-                        <a href="/classes/{{ booking.gym_class.id }}">
-                            {{ booking.gym_class.name }} - 
-                            {{ booking.gym_class.class_date.strftime('%a %d %b %Y') }} - 
-                            {{ booking.gym_class.class_time.strftime('%I:%M %p') }}
-                        </a>
-                    </td>
-                    <td>{{ booking.member.get_full_name() }}</td>
-                    <td>{{ booking.create_date.strftime('%d/%m/%y %H:%M:%S') }}</td>
-                    <td>
-                        <button>
-                            <a href="booking/{{ booking.id }}/delete">Delete</a>
-                        </button>
-                    </td>
-                </tr>
-                
-            {% endfor %}
+            {% if bookings %}
+                {% for booking in bookings %}
+                    <tr class="table-row">
+                        <td>
+                            <a href="/classes/{{ booking.gym_class.id }}" class="inline-link">
+                                {{ booking.gym_class.name }} - 
+                                {{ booking.gym_class.class_date.strftime('%a %d %b %Y') }} - 
+                                {{ booking.gym_class.class_time.strftime('%I:%M %p') }}
+                            </a>
+                        </td>
+                        <td>
+                            <a href="/members/{{ booking.member.id }}" class="inline-link">
+                                {{ booking.member.get_full_name() }}
+                            </a>
+                        </td>
+                        <td>{{ booking.create_date.strftime('%d/%m/%y %H:%M:%S') }}</td>
+                        <td>
+                            <button class="button button-delete button-small">
+                                <a href="booking/{{ booking.id }}/delete" class="invisi-link">
+                                    Delete
+                                </a>
+                            </button>
+                        </td>
+                    </tr>
+                    
+                {% endfor %}
+            {% endif %}
+            
         </table>
     </main>
 {% endblock %}

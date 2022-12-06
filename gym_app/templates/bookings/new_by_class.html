@@ -12,17 +12,25 @@
     <main class="booking-main">
         {% for gym_class in gym_classes %}
             <section class="card-class">
-                <a href="/classes/{{ gym_class.id  }}">View Class Details</a>
-                <p>{{ gym_class.class_date }}</p>
-                <p>{{ gym_class.class_time }}</p>
-                <p>Peak? {{ gym_class.is_peak }}</p>
+                <p>
+                    <a href="/classes/{{ gym_class.id }}" class="inline-link">
+                        {{ gym_class.name }} - 
+                        {{ gym_class.class_date.strftime('%a %-d %b %Y') }} - 
+                        {{ gym_class.class_time.strftime('%I:%M %p') }}
+                    </a>
+                </p>
+                {% if gym_class.is_peak %}
+                        <p>Peak</p>
+                    {% else %}
+                        <p>OffPeak</p>
+                    {% endif %}
                 {% if gym_class_status[gym_class.id] %}
-                    <button>
+                    <button class="button button-disabled">
                         Class Full
                     </button>
                 {% else %}
-                    <button>
-                        <a href="/bookings/new/{{ gym_class.id }}">Book</a>
+                    <button class="button button-book">
+                        <a href="/bookings/new/{{ gym_class.id }}" class="invisi-link">Book</a>
                     </button>
                 {% endif %}
                 

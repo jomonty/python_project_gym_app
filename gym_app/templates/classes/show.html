@@ -50,11 +50,6 @@
                         Edit
                     </a>
                 </button>
-                <button class="button button-delete">
-                    <a href="/classes/{{ gym_class.id }}/delete" class="invisi-link">
-                        Delete
-                    </a>
-                </button>
                 {% if class_full %}
                     <button class="button button-disabled">Class Full</button>
                 {% elif not gym_class.is_active %}
@@ -66,6 +61,11 @@
                         </a>
                     </button>
                 {% endif %}
+                <button class="button button-delete">
+                    <a href="/classes/{{ gym_class.id }}/delete" class="invisi-link">
+                        Delete
+                    </a>
+                </button>
             </div>
         </section>
         <section class="member-main">

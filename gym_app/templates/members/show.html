@@ -22,16 +22,6 @@
                 {% endif %}
             </div>
             <div class="card-member-buttons">
-                <a href="/members/{{ member.id }}/edit" class="invisi-link">
-                    <button class="button button-edit">
-                        Edit
-                    </button>
-                </a>
-                <a href="/members/{{ member.id }}/delete" class="invisi-link">
-                    <button class="button button-delete">
-                        Delete
-                    </button>
-                </a>
                 {% if member.is_active %}
                     <a href="/members/{{ member.id }}/toggle" class="invisi-link">
                         <button class="button member-button button-set-inactive">
@@ -45,6 +35,16 @@
                         </button>        
                     </a>
                 {% endif %}
+                <a href="/members/{{ member.id }}/edit" class="invisi-link">
+                    <button class="button button-edit">
+                        Edit
+                    </button>
+                </a>
+                <a href="/members/{{ member.id }}/delete" class="invisi-link">
+                    <button class="button button-delete">
+                        Delete
+                    </button>
+                </a>
             </div>
         </section>
         <section class="classes-main">
@@ -80,7 +80,7 @@
                             </a>
                         {% endif %}
                         <button class="button button-edit">
-                            <a href="/classes/{{ class.id }}/edit">Edit</a>
+                            <a href="/classes/{{ class.id }}/edit" class="invisi-link">Edit</a>
                         </button>
                     </div>
                 </section>

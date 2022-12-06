@@ -8,8 +8,8 @@
     <header class="booking-header">
         <h2>Choose a Member</h2>
     </header>
-    <main class="booking-main">
-        <form action="/bookings/new" method="post">
+    <main class="booking-main-choose-member">
+        <form action="/bookings/new" method="post" class="booking-form">
             <fieldset>
                 <legend>
                     Member Selection - {{ gym_class.name }} - {{ gym_class.class_date }} - {{ gym_class.class_time }}
@@ -26,19 +26,25 @@
                     </div>
                 {% endfor %}
                 <input type="hidden" name="gym_class_id" value="{{ gym_class.id }}">
-                <button type="submit">Select</button>
+                
             </fieldset>
+            <button type="submit" class="button button-post">Select</button>
         </form>
-        <section class="members-main">
-            <header>
-                <h2>Booked Members</h2>
-            </header>
+        <h2>Booked Members</h2>
+        <section class="member-main">
             {% for member in booked_members %}
-                <section class="card-member">
+                <section class="card-member-booking">
                     <div>
-                        <p>Name: <a href="/members/{{ member.id }}">{{ member.get_full_name() }}</a></p>
-                        <p>Premium? {{ member.is_premium }}</p>
-                        <p>Active? {{ member.is_active }}</p>
+                        <p>
+                            <a href="/members/{{ member.id }}" class="inline-link">
+                                {{ member.get_full_name() }}
+                            </a>
+                        </p>
+                        {% if member.is_premium %}
+                            <p>Premium &#127775;</p>
+                        {% else %}
+                            <p>Standard</p>
+                        {% endif %}
                     </div>
                 </section>
             {% endfor %}

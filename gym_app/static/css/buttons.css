@@ -3,25 +3,27 @@
     color: white;
     height: 2.5em;
     width: 4.5em;
-    /* padding: 0.5rem 0.8rem; */
     text-align: center;
     text-decoration: none;
-    /* display: inline-block; */
     font-size: 16px;
     border-radius: 0.3em;
 }
 
 .button-post {
-    background-color: blue;
+    background-color: #15358F;
     align-self: flex-end;
     justify-self: center;
     margin: 0.5em;
 }
 .button-edit {
-    background-color: gold;
+    background-color: #DB9E00;
 }
 .button-book {
-    background-color: coral;
+    background-color: #DB4F2C;
+}
+.button-save {
+    width: 100%;
+    background-color: #2CB5DB;
 }
 .button-delete {
     background-color: grey;
@@ -39,8 +41,13 @@
 }
 
 .button-set-active {
-    background-color: red;
+    background-color: #8F331D;
 }
 .button-set-inactive {
-    background-color: green;
+    background-color: #078F62;
+}
+
+.button-small {
+    height: 100%;
+    width: 100%;
 }
