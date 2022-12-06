@@ -13,7 +13,6 @@ members_blueprint = Blueprint('members', __name__)
 def all_members():
     members = member_repo.select_all()
     header = 'All Members'
-    # members.sort(key=lambda x: x.last_name)
     return render_template('members/index.html', members=members, header=header)
 
 # READ - GET - Show All Active

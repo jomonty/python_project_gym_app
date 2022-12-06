@@ -37,7 +37,7 @@ def select_all() -> list[Member]:
     sql = """
             SELECT *
             FROM members
-            ORDER BY last_name, first_name
+            ORDER BY last_name ASC, first_name ASC
             """
     results = run_sql(sql)
     return results_parser(results)
@@ -48,7 +48,7 @@ def select_all_active(active: bool = True) -> list[Member]:
             SELECT *
             FROM members
             WHERE is_active = %s
-            ORDER BY last_name, first_name
+            ORDER BY last_name ASC, first_name ASC
             """
     values = [active]
     results = run_sql(sql, values)

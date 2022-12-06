@@ -37,6 +37,7 @@ def select_all():
     sql = """
             SELECT *
             FROM classes
+            ORDER BY class_date ASC, class_time ASC
             """
     results = run_sql(sql)
     gym_classes = results_parser(results)
@@ -48,6 +49,7 @@ def select_all_upcoming():
             SELECT *
             FROM classes
             WHERE class_date >= CURRENT_DATE and is_active = true
+            ORDER BY class_date ASC, class_time ASC
             """
     results = run_sql(sql)
     gym_classes = results_parser(results)
@@ -59,6 +61,7 @@ def select_all_historic():
             SELECT *
             FROM classes
             WHERE class_date < CURRENT_DATE
+            ORDER BY class_date DESC, class_time DESC
             """
     results = run_sql(sql)
     gym_classes = results_parser(results)
@@ -71,6 +74,7 @@ def select_all_inactive():
             FROM classes
             WHERE is_active = false
             AND class_date >= CURRENT_DATE
+            ORDER BY class_date DESC, class_time DESC
             """
     results = run_sql(sql)
     gym_classes = results_parser(results)
@@ -84,6 +88,7 @@ def select_all_upcoming_by_name(class_name):
             WHERE name = %s 
             AND class_date >= CURRENT_DATE
             AND is_active = true
+            ORDER BY class_date ASC, class_time ASC
             """
     values = [class_name]
     results = run_sql(sql, values)
@@ -94,7 +99,9 @@ def select_all_upcoming_by_name(class_name):
 def select_distinct_classes() -> list[str]:
     sql = """
             SELECT DISTINCT name
-            FROM classes"""
+            FROM classes
+            ORDER BY name ASC
+            """
     results = run_sql(sql)
     distinct_classes = []
     for row in results:

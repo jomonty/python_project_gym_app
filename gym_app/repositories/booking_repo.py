@@ -38,6 +38,7 @@ def select_all() -> list[Booking]:
     sql = """
             SELECT *
             FROM bookings
+            ORDER BY create_date DESC
             """
     results = run_sql(sql)
     return result_parser(results)

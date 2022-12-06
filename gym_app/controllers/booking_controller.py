@@ -15,7 +15,6 @@ bookings_blueprint = Blueprint('bookings', __name__)
 @bookings_blueprint.route('/bookings', methods=['GET'])
 def all_bookings():
     bookings = booking_repo.select_all()
-    bookings.sort(key=lambda x: x.create_date, reverse=True)
     return render_template('bookings/index.html', bookings = bookings)
 
 # DELETE - GET - Process request
@@ -28,7 +27,6 @@ def one_booking_delete(id):
 @bookings_blueprint.route('/bookings/new', methods=['GET'])
 def new_booking_handler():
     class_names = gym_class_repo.select_distinct_classes()
-    class_names.sort()
     return render_template('bookings/class_choice.html', class_names = class_names)
 
 # CREATE - GET - Show upcoming instances of a given type of class

@@ -17,6 +17,7 @@ def get_all_booked_classes(id: int) -> list[GymClass]:
             FROM bookings b
             INNER JOIN classes c on b.class_id = c.id
             WHERE b.member_id = %s
+            ORDER BY c.class_date ASC, c.class_time ASC
             """
     values = [id]
     results = run_sql(sql, values)
@@ -31,6 +32,7 @@ def get_all_booked_members(id: int) -> list[Member]:
             INNER JOIN members m
             ON b.member_id = m.id
             WHERE b.class_id = %s
+            ORDER BY m.last_name ASC, m.first_name ASC
             """
     values = [id]
     results = run_sql(sql, values)
@@ -61,6 +63,7 @@ def select_all_members_for_booking(gym_class: GymClass) -> list[Member]:
             (SELECT * FROM bookings WHERE class_id = %s) b
             ON m.id = b.member_id
             WHERE b.id is null
+            ORDER BY m.last_name ASC, m.first_name ASC
             """
     values = [gym_class.id]
     results = run_sql(sql, values)
@@ -76,6 +79,7 @@ def select_premium_members_for_booking(gym_class: GymClass) -> list[Member]:
             (SELECT * FROM bookings WHERE class_id = %s) b
             ON m.id = b.member_id
             WHERE m.is_premium = true AND b.id is null
+            ORDER BY m.last_name ASC, m.first_name ASC
             """
     values = [gym_class.id]
     results = run_sql(sql, values)
@@ -86,8 +90,10 @@ def select_premium_members_for_booking(gym_class: GymClass) -> list[Member]:
 def select_all_by_class(gym_class: GymClass) -> list[Booking]:
     sql = """
             SELECT *
-            FROM bookings
+            FROM bookings b
+            LEFT JOIN members m on b.member_id = m.id
             WHERE class_id = %s
+            ORDER BY m.last_name ASC, m.first_name ASC
             """
     values = [gym_class.id]
     results = run_sql(sql, values)
