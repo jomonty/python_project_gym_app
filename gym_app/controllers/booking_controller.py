@@ -24,12 +24,14 @@ def one_booking_delete(id):
     booking_repo.delete(id)
     return redirect(request.referrer)
 
+# CREATE - GET - Display available types of class
 @bookings_blueprint.route('/bookings/new', methods=['GET'])
 def new_booking_handler():
     class_names = gym_class_repo.select_distinct_classes()
     class_names.sort()
     return render_template('bookings/class_choice.html', class_names = class_names)
 
+# CREATE - GET - Show upcoming instances of a given type of class
 @bookings_blueprint.route('/bookings/new/<string:class_name>', methods=['GET'])
 def new_booking_class(class_name):
     gym_classes = gym_class_repo.select_all_upcoming_by_name(class_name)
@@ -38,6 +40,7 @@ def new_booking_class(class_name):
         gym_class_status[gym_class.id] = admin_repo.is_class_full(gym_class)
     return render_template('bookings/new_by_class.html', gym_classes = gym_classes, class_name = class_name, gym_class_status = gym_class_status)
     
+# CREATE - GET - Show members available to book onto class
 @bookings_blueprint.route('/bookings/new/<int:id>', methods=['GET'])
 def new_booking_member(id):
     gym_class = gym_class_repo.select(id)
@@ -49,6 +52,7 @@ def new_booking_member(id):
                 members.pop(index)
     return render_template('bookings/new_by_member.html', gym_class=gym_class, members=members, booked_members=booked_members)
 
+# CREATE - POST - Process create booking reqeust
 @bookings_blueprint.route('/bookings/new', methods=['POST'])
 def new_booking_save():
     form_data = request.form
