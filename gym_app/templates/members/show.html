@@ -13,24 +13,39 @@
     </header>
     <main class="member-main">
         <section class="card-member">
-            <p>Name: {{ member.get_full_name() }}</p>
-            <p>Premium? {{ member.is_premium }}</p>
-            <p>Active? {{ member.is_active }}</p>
-            <button>
-                <a href="/members/{{ member.id }}/edit">Edit</a>
-            </button>
-            <button>
-                <a href="/members/{{ member.id }}/delete">Delete</a>
-            </button>
-            <button>
-                <a href="/members/{{ member.id }}/toggle">
-                    {% if member.is_active %}
-                        Set Inactive
-                    {% else %}
-                        Set Active
-                    {% endif %}
+            <div class="card-member-text">
+                <p>{{ member.get_full_name() }}</p>
+                {% if member.is_premium %}
+                        <p>Premium &#127775;</p>
+                {% else %}
+                    <p>Standard</p>
+                {% endif %}
+            </div>
+            <div class="card-member-buttons">
+                <a href="/members/{{ member.id }}/edit" class="invisi-link">
+                    <button class="button button-edit">
+                        Edit
+                    </button>
                 </a>
-            </button>
+                <a href="/members/{{ member.id }}/delete" class="invisi-link">
+                    <button class="button button-delete">
+                        Delete
+                    </button>
+                </a>
+                {% if member.is_active %}
+                    <a href="/members/{{ member.id }}/toggle" class="invisi-link">
+                        <button class="button member-button button-set-inactive">
+                            Active
+                        </button>
+                    </a>
+                {% else %}
+                    <a href="/members/{{ member.id }}/toggle" class="invisi-link">
+                        <button class="button member-button button-set-active">
+                            Inactive
+                        </button>        
+                    </a>
+                {% endif %}
+            </div>
         </section>
         <section class="classes-main">
             {% for class in classes %}

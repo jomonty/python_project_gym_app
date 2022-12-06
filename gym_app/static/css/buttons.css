@@ -1,7 +1,9 @@
 .button {
     border: none;
     color: white;
-    padding: 0.4rem 0.6rem;
+    height: 2.5em;
+    width: 4.5em;
+    /* padding: 0.5rem 0.8rem; */
     text-align: center;
     text-decoration: none;
     /* display: inline-block; */
@@ -9,15 +11,17 @@
     border-radius: 0.3em;
 }
 
-.member-button {
-    font-size: 14px;
-}
-
 .button-post {
     background-color: blue;
     align-self: flex-end;
     justify-self: center;
     margin: 0.5em;
+}
+.button-edit {
+    background-color: gold;
+}
+.button-delete {
+    background-color: grey;
 }
 
 .button-back {

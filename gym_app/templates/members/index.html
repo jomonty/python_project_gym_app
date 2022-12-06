@@ -17,7 +17,7 @@
     <main class="member-main">
         {% for member in members %}
             <section class="card-member">
-                <div>
+                <div class="card-member-text">
                     <p>
                         <a href="/members/{{ member.id }}" class="inline-link">
                             {{ member.get_full_name() }}
@@ -29,22 +29,22 @@
                         <p>Standard</p>
                     {% endif %}
                 </div>
-                <div class="member-show-buttons">
+                <div class="card-member-buttons">
                     <button class="button member-button">
                         <a href="/members/{{ member.id }}/edit" class="invisi-link">Edit</a>
                     </button>
                     {% if member.is_active %}
-                        <button class="button member-button button-set-inactive">
-                            <a href="/members/{{ member.id }}/toggle" class="invisi-link">
+                        <a href="/members/{{ member.id }}/toggle" class="invisi-link">
+                            <button class="button member-button button-set-inactive">
                                 Active
-                            </a>
-                        </button>
+                            </button>
+                        </a>
                     {% else %}
-                        <button class="button member-button button-set-active">
-                            <a href="/members/{{ member.id }}/toggle" class="invisi-link">
+                        <a href="/members/{{ member.id }}/toggle" class="invisi-link">
+                            <button class="button member-button button-set-active">
                                 Inactive
-                            </a>
-                        </button>
+                            </button>        
+                        </a>
                     {% endif %}
                 </div>
             </section>
