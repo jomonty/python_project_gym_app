@@ -93,12 +93,12 @@ To run this app, you must install:
 
 1. Clone the repository
    ```sh
-   git clone https://github.com/kelsiesmurphy/CC_Project_AdventureGrid.git
+   git clone https://github.com/jomonty/codeclan_python_project.git
    ```
 2. Navigate to the folder using terminal
 3. Create the database
    ```sh
-   psql -d experience_manager -f db/experience_manager.sql
+   psql -d gym_app -f db/gym_app.sql
    ```
 4. Seed the database with pre-set data by running the console.py file
    ```sh
@@ -108,5 +108,5 @@ To run this app, you must install:
    ```sh
    flask run
    ```
-6. Open in browser (Google Chrome is recommended): http://127.0.0.1:4999
+6. Open in browser: http://127.0.0.1:4999
 7. To stop the server enter ctrl + c in your Terminal
