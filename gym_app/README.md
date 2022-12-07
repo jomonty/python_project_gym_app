@@ -72,4 +72,41 @@ It must **NOT** use:
 
 # Getting Started
 
+### Prerequisites
+
+To run this app, you must install: 
+* psychopg
+  ```sh
+  pip3 install psycopg2
+  ```
+
+* Flask
+  ```sh
+  pip3 install Flask
+  ```
+
+* Postgresql
+
+
+
 ### Installation
+
+1. Clone the repository
+   ```sh
+   git clone https://github.com/kelsiesmurphy/CC_Project_AdventureGrid.git
+   ```
+2. Navigate to the folder using terminal
+3. Create the database
+   ```sh
+   psql -d experience_manager -f db/experience_manager.sql
+   ```
+4. Seed the database with pre-set data by running the console.py file
+   ```sh
+   python3 console.py
+   ```
+5. Run Flask
+   ```sh
+   flask run
+   ```
+6. Open in browser (Google Chrome is recommended): http://127.0.0.1:4999
+7. To stop the server enter ctrl + c in your Terminal
