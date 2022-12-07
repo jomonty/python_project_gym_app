@@ -43,7 +43,6 @@ def new_booking_class(class_name):
 @bookings_blueprint.route('/bookings/new/<int:id>', methods=['GET'])
 def new_booking_member(id):
     gym_class = gym_class_repo.select(id)
-    # print('here')
     booked_members = admin_repo.get_all_booked_members(id)
     if gym_class.is_peak:
         members = admin_repo.select_premium_members_for_booking(gym_class)
