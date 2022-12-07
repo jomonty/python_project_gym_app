@@ -28,7 +28,7 @@
     flex-direction: row;
     flex-wrap: nowrap;
     justify-content: space-around;
-    align-items: center;
+    align-items: flex-start;
     column-gap: 0.1em;
     row-gap: 2em;
 }

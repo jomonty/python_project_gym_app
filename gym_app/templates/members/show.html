@@ -12,6 +12,7 @@
         </nav>
     </header>
     <main class="member-main-show">
+        {% if member %}
         <section class="card-member">
             <div class="card-member-text">
                 <p>{{ member.get_full_name() }}</p>
@@ -47,6 +48,7 @@
                 </a>
             </div>
         </section>
+        {% endif %}
         <section class="classes-main">
             {% for class in classes %}
                 <section class="card-class">
@@ -73,7 +75,7 @@
                                 </button>
                             </a>
                         {% else %}
-                            <a href="/members/{{ member.id }}/toggle" class="invisi-link">
+                            <a href="/classes/{{ class.id }}/toggle" class="invisi-link">
                                 <button class="button class-button button-set-active">
                                     Inactive
                                 </button>        
