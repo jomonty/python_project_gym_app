@@ -1,4 +1,4 @@
-### CodeClan Project - Gym App with Python/Flask
+# CodeClan Project - Gym App with Python/Flask
 
 <br>
 
