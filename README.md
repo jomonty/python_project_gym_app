@@ -1,26 +1,5 @@
 ### CodeClan Project - Gym App with Python/Flask
 
-<!-- TABLE OF CONTENTS -->
-<details>
-  <summary>Table of Contents</summary>
-  <ol>
-    <li>
-      <a href="#project-brief">Project Brief</a>
-      <ul>
-        <li><a href="#rules">Built With</a></li>
-      </ul>
-    </li>
-    <li>
-      <a href="#getting-started">Getting Started</a>
-      <ul>
-        <li><a href="#installation">Installation</a></li>
-      </ul>
-    </li>
-<!--     <li><a href="#contact">Contact</a></li>
-    <li><a href="#acknowledgments">Acknowledgments</a></li> -->
-  </ol>
-</details>
-
 <br>
 
 # Project Brief
