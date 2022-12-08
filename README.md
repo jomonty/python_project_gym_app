@@ -48,10 +48,6 @@ A local gym has asked you to build a piece of software to help them to manage me
 - The Gym could mark members and classes as active/deactivated. Deactivated members/classes will not appear when creating bookings. 
 
 
-- Database with path to image (one-to-one)
-- Gym can set custom definition of premium hours
-- Membership type can be started and stopped
-
 ### Rules
 
 The project must be built using only:
