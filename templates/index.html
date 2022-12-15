@@ -31,7 +31,7 @@
         {% for news_item in news %}
             <section class="card-news">
                 <p>
-                    {{ news_item.create_date.strftime('%a %-d %B %Y') }} - 
+                    {{ news_item.create_date.strftime('%a %d %B %Y') }} - 
                     {{ news_item.create_date.strftime('%I:%M %p') }}
                 </p>
                 <p>{{ news_item.news_item }}</p>
