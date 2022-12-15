@@ -60,7 +60,9 @@ To run this app, you must install:
   pip3 install Flask
   ```
 
-* Postgresql
+* Postgresql - postico on mac makes this really easy, follow steps below.
+* Postgresql is more involved on windows, if you can execute psql commands in PS the createdb command will work and it will run.
+
 
 
 
