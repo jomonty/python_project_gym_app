@@ -50,7 +50,7 @@ It must **NOT** use:
 ### Prerequisites
 
 To run this app, you must install: 
-* psychopg
+* psycopg
   ```sh
   pip3 install psycopg2
   ```
@@ -58,6 +58,11 @@ To run this app, you must install:
 * Flask
   ```sh
   pip3 install Flask
+  ```
+
+* Alternatively, for all dependencies 
+  ```sh
+  pip3 install -r requirements.txt
   ```
 
 * Postgresql - postico on mac makes this really easy, follow steps below.
@@ -77,7 +82,7 @@ To run this app, you must install:
    ```sh
    createdb gym_app
    ```
-4. Create the database
+4. Create the tables
    ```sh
    psql -d gym_app -f db/gym_app.sql
    ```
