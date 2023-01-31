@@ -16,9 +16,6 @@ A local gym has asked you to build a piece of software to help them to manage me
 - The app should show a list of all upcoming classes
 - The app should show all members that are booked in for a particular class
 
-### Inspired By
-
-[Glofox](https://www.glofox.com/club-solution/), [Pike13](https://www.pike13.com/pike13-scheduling-software-demo)
 
 ### Possible Extensions
 
